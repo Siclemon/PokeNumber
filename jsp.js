@@ -15,7 +15,7 @@ function button() {
     guesses++;
     if (input.value == number) {
         score++;
-        document.querySelector(".ans").style.backgroundColor = 'green';
+        document.body.style.animation = "oui 4s linear infinite"
     } else {
         document.body.style.backgroundColor = 'red';
     }

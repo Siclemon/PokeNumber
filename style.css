@@ -28,6 +28,8 @@
     padding: 8px;
     font-family:Arial, Helvetica, sans-serif;
     font-size: small;
+    background-color: rgb(223, 223, 223);
+    border: 0;
 }
 
 #btn {
@@ -41,4 +43,10 @@
     font-family:Arial, Helvetica, sans-serif;
     font-size:x-large;
     margin-bottom: 4%;  
+}
+
+@keyframes oui {
+    100% {
+        background: radial-gradient(rgb(120, 220, 120), rgb(200, 200, 200),);
+    }
 }
