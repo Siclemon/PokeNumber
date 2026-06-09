@@ -3,54 +3,104 @@ const btn = document.getElementById("btn");
 const input = document.querySelector('#input');
 const img = document.querySelector('#img');
 const scoreText = document.querySelector('#score');
+const answer = document.getElementById('answer');
 let number = gen();
 let score = 0;
 let guesses = 0;
-
-btn.addEventListener("click", button);
+var opacity = 1;
 
 init();
 
-function button() {
+btn.addEventListener("click", button);
+
+async function button() {
     guesses++;
     if (input.value == number) {
-        score++;
-        document.body.style.animation = "oui 4s linear infinite"
+        correct();
     } else {
-        document.body.style.backgroundColor = 'red';
+        await incorrect();
     }
     scoreText.innerHTML = score + '/' + guesses;
     init();
+}
+
+function correct() {
+    score++;
+    input.animate(
+        {
+            backgroundColor: ["rgb(198, 223, 193)"],
+            offset: 0.3
+        },
+        {
+            duration: 1000,
+            iterations: 1,
+            easing: "ease-in-out",
+        }
+    );
+}
+
+async function incorrect() {
+    document.querySelector('#answer').textContent = number;
+    input.animate(
+        {
+            backgroundColor: ["rgb(223, 195, 195)"],
+            offset: 0.3
+        },
+        {
+            duration: 1000,
+            iterations: 1,
+            easing: "ease-in-out",
+        }
+    );
+    showAnswer();
+    await new Promise(r => setTimeout(r, 800));
+}
+
+async function showAnswer() {
+    answer.style.opacity = 1;
+
+    await new Promise(r => setTimeout(r, 700));
+
+    opacity = 1;
+    MyFadeFunction();
+}
+
+function MyFadeFunction() {
+    if (opacity > 0) {
+        opacity -= .1;
+        setTimeout(function () { MyFadeFunction() }, 80);
+    }
+    document.getElementById('answer').style.opacity = opacity;
 }
 
 function gen() {
     return Math.floor(Math.random() * 301) + 1;
 }
 
-function init() {
+async function init() {
     input.value = '';
     number = gen();
-    //document.getElementById("pipi").innerHTML = dex[number];
     input.focus();
-    fetch(`https://pokeapi.co/api/v2/pokemon/${number}`)
+
+    //gets the image
+    await fetch(`https://pokeapi.co/api/v2/pokemon/${number}`)
         .then((response) => response.json())
         .then((newPokemon) => {
             img.src = newPokemon.sprites.other.home.front_default;
-            if (Math.random()<0.1) img.src = newPokemon.sprites.other.home.front_shiny;
+            if (Math.random() < 0.02) img.src = newPokemon.sprites.other.home.front_shiny;
         });
 
-
-    fetch(`https://pokeapi.co/api/v2/pokemon-species/${number}`)
+    //gets the name in french
+    await fetch(`https://pokeapi.co/api/v2/pokemon-species/${number}`)
         .then((response) => response.json())
         .then((newPokemon) => {
             document.getElementById("name").innerHTML = newPokemon.names[4].name;
         });
 }
 
-document.getElementById("input")
-    .addEventListener("keyup", function (event) {
-        event.preventDefault();
-        if (event.keyCode === 13) {
-            document.getElementById("btn").click();
-        }
-    });
+function keyPress(e){
+    if(e.keyCode === 13){
+        e.preventDefault(); 
+        button();
+    }
+}

@@ -16,8 +16,11 @@
             <p id="name">aaa</p>
         </div>
         <div class="ans">
-            <input type="text" name="q" id="input" onblur="this.focus()" autofocus >
-            <button id="btn">Valider</button>
+            <input type="text" name="q" id="input" onblur="this.focus()" autofocus placeholder="Numéro..." onkeypress="keyPress(event)">
+            
+        </div>
+        <div>
+            <p id="answer"></p>
         </div>
     </div>
 </body>
