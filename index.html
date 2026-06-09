@@ -16,14 +16,26 @@
             <p id="name"> </p>
         </div>
         <div class="ans">
-            <input type="text" name="q" id="input" onblur="this.focus()" autofocus placeholder="Numéro..." onkeypress="keyPress(event)">
+            <input type="text" name="q" id="input" autofocus placeholder="Numéro..." onkeypress="keyPress(event)">
         </div>
         <div>
             <p id="answer"></p>
         </div>
     </div>
+    <div class="menu">
+        <div class="boundaries">
+            <div class="minDiv">
+                <label for="min" id="labelMin">Numéro minimum :</label>
+                <input type="number" name="min" id="min" min="1" max="1025" placeholder="1">
+            </div>
+            <div class="maxDiv">
+                <label for="max" id="labelMax">Numéro maximum :</label>
+                <input type="number" name="max" id="max" min="1" max="1025" placeholder="301">
+            </div>
+        </div>
+    </div>
 </body>
 
-<script src="jsp.js" defer></script>
+<script src="js.js" defer></script>
 
 </html>

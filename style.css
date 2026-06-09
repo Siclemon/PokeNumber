@@ -1,6 +1,7 @@
 body {
     background-color: rgb(250, 235, 215);
     animation: oui 10 linear infinite;
+    overflow-x: hidden;
 }
 
 .all {
@@ -51,4 +52,44 @@ body {
     font-family:Arial, Helvetica, sans-serif;
     font-size:x-large;
     opacity: 0;
+}
+
+.menu {
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    background-color: rgb(65, 61, 61);
+    top: 0;
+    right: -20%;
+    transition: 0.5s;
+    font-family:Arial, Helvetica, sans-serif;
+    color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu:hover {
+    right: 0%;
+}
+
+.menu:hover > .boundaries {
+    transition: 0.5s;
+    opacity: 1;
+}
+
+.boundaries {
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+}
+
+
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }

@@ -2,6 +2,8 @@ const input = document.querySelector('#input');
 const img = document.querySelector('#img');
 const scoreText = document.querySelector('#score');
 const answer = document.getElementById('answer');
+const minimum = document.querySelector('#min');
+const maximum = document.querySelector('#max');
 let number;
 let score = 0;
 let guesses = 0;
