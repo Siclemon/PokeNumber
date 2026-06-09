@@ -1,19 +1,15 @@
-const dex = ['Bulbizarre', 'Herbizarre', 'Florizarre', 'Salamèche', 'Reptincel', 'Dracaufeu', 'Carapuce', 'Carabaffe', 'Tortank', 'Chenipan', 'Chrysacier', 'Papilusion', 'Aspicot', 'Coconfort', 'Dardargnan'];
-const btn = document.getElementById("btn");
 const input = document.querySelector('#input');
 const img = document.querySelector('#img');
 const scoreText = document.querySelector('#score');
 const answer = document.getElementById('answer');
-let number = gen();
+let number;
 let score = 0;
 let guesses = 0;
 var opacity = 1;
 
 init();
 
-btn.addEventListener("click", button);
-
-async function button() {
+async function enter() {
     guesses++;
     if (input.value == number) {
         correct();
@@ -62,35 +58,35 @@ async function showAnswer() {
     await new Promise(r => setTimeout(r, 700));
 
     opacity = 1;
-    MyFadeFunction();
+    fadeOutAnswer();
 }
 
-function MyFadeFunction() {
+function fadeOutAnswer() {
     if (opacity > 0) {
         opacity -= .1;
-        setTimeout(function () { MyFadeFunction() }, 80);
+        setTimeout(function () { fadeOutAnswer() }, 80);
     }
-    document.getElementById('answer').style.opacity = opacity;
+    answer.style.opacity = opacity;
 }
 
-function gen() {
-    return Math.floor(Math.random() * 301) + 1;
+function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
 }
 
 async function init() {
     input.value = '';
-    number = gen();
+    number = randomInt(1,302);
     input.focus();
 
-    //gets the image
+    //gets the pokemon sprite
     await fetch(`https://pokeapi.co/api/v2/pokemon/${number}`)
         .then((response) => response.json())
         .then((newPokemon) => {
-            img.src = newPokemon.sprites.other.home.front_default;
-            if (Math.random() < 0.02) img.src = newPokemon.sprites.other.home.front_shiny;
+            img.src = newPokemon.sprites.other['official-artwork'].front_default;
+            if (Math.random() - score / 100000 < 0.02) img.src = newPokemon.sprites.other['official-artwork'].front_shiny;
         });
 
-    //gets the name in french
+    //gets the pokemon name in french
     await fetch(`https://pokeapi.co/api/v2/pokemon-species/${number}`)
         .then((response) => response.json())
         .then((newPokemon) => {
@@ -101,6 +97,6 @@ async function init() {
 function keyPress(e){
     if(e.keyCode === 13){
         e.preventDefault(); 
-        button();
+        enter();
     }
 }
