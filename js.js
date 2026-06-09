@@ -4,10 +4,14 @@ const scoreText = document.querySelector('#score');
 const answer = document.getElementById('answer');
 const minimum = document.querySelector('#min');
 const maximum = document.querySelector('#max');
+const okBtn = document.querySelector('#ok');
 let number;
 let score = 0;
 let guesses = 0;
 var opacity = 1;
+
+minimum.value = 1;
+maximum.value = 1025;
 
 init();
 
@@ -38,7 +42,7 @@ function correct() {
 }
 
 async function incorrect() {
-    document.querySelector('#answer').textContent = number;
+    answer.textContent = number;
     input.animate(
         {
             backgroundColor: ["rgb(223, 195, 195)"],
@@ -72,12 +76,16 @@ function fadeOutAnswer() {
 }
 
 function randomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 async function init() {
     input.value = '';
-    number = randomInt(1,302);
+
+    let min = parseInt(minimum.value);
+    let max = parseInt(maximum.value);
+
+    number = randomInt(min,max);
     input.focus();
 
     //gets the pokemon sprite
@@ -102,3 +110,7 @@ function keyPress(e){
         enter();
     }
 }
+
+okBtn.addEventListener("click", () => {
+    init();
+})
