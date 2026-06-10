@@ -5,10 +5,12 @@ const answer = document.getElementById('answer');
 const minimum = document.querySelector('#min');
 const maximum = document.querySelector('#max');
 const okBtn = document.querySelector('#ok');
+const darkModeBtn = document.querySelector('#darkModeButton')
 let number;
 let score = 0;
 let guesses = 0;
 var opacity = 1;
+let darkMode = false;
 
 minimum.value = 1;
 maximum.value = 1025;
@@ -113,4 +115,18 @@ function keyPress(e){
 
 okBtn.addEventListener("click", () => {
     init();
+})
+
+darkModeBtn.addEventListener("click", () => {
+    darkMode = !darkMode;
+    if (darkMode) {
+        darkModeBtn.innerHTML = "☀️";
+        document.body.classList.add("darkBody");
+        document.querySelectorAll(".text").forEach((item) => {item.classList.add("darkText")});
+    }
+    else {
+        darkModeBtn.innerHTML = "🌙";
+        document.body.classList.remove("darkBody");
+        document.querySelectorAll(".text").forEach((item) => {item.classList.remove("darkText")});
+    }
 })
