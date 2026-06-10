@@ -114,6 +114,8 @@ function keyPress(e){
 }
 
 okBtn.addEventListener("click", () => {
+    score = guesses = 0;
+    scoreText.innerHTML = score + '/' + guesses;
     init();
 })
 
