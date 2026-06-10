@@ -6,7 +6,8 @@ const answer = document.getElementById('answer');
 const minimum = document.querySelector('#min');
 const maximum = document.querySelector('#max');
 const okBtn = document.querySelector('#ok');
-const darkModeBtn = document.querySelector('#darkModeButton')
+const darkModeBtn = document.querySelector('#darkModeButton');
+const menuBtn = document.querySelector('.menuIcon');
 let number = 0;
 let name = '';
 let score = 0;
@@ -146,4 +147,8 @@ darkModeBtn.addEventListener("click", () => {
         document.body.classList.remove("darkBody");
         document.querySelectorAll(".text").forEach((item) => { item.classList.remove("darkText") });
     }
+})
+
+menuBtn.addEventListener("click", () => {
+    document.querySelector('.menu').style.right = '0%';
 })
