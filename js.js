@@ -1,16 +1,19 @@
 const input = document.querySelector('#input');
 const img = document.querySelector('#img');
+const nameBox = document.querySelector('#name');
 const scoreText = document.querySelector('#score');
 const answer = document.getElementById('answer');
 const minimum = document.querySelector('#min');
 const maximum = document.querySelector('#max');
 const okBtn = document.querySelector('#ok');
 const darkModeBtn = document.querySelector('#darkModeButton')
-let number;
+let number = 0;
+let name = '';
 let score = 0;
 let guesses = 0;
 var opacity = 1;
 let darkMode = false;
+let language = 'fr';
 
 minimum.value = 1;
 maximum.value = 1025;
@@ -87,28 +90,40 @@ async function init() {
     let min = parseInt(minimum.value);
     let max = parseInt(maximum.value);
 
-    number = randomInt(min,max);
+    number = randomInt(min, max);
     input.focus();
 
-    //gets the pokemon sprite
+    await fecthImage();
+    await fetchName();
+}
+
+async function fecthImage() {
     await fetch(`https://pokeapi.co/api/v2/pokemon/${number}`)
         .then((response) => response.json())
         .then((newPokemon) => {
             img.src = newPokemon.sprites.other['official-artwork'].front_default;
             if (Math.random() - score / 100000 < 0.02) img.src = newPokemon.sprites.other['official-artwork'].front_shiny;
         });
+}
 
-    //gets the pokemon name in french
+async function fetchName() {
     await fetch(`https://pokeapi.co/api/v2/pokemon-species/${number}`)
         .then((response) => response.json())
         .then((newPokemon) => {
-            document.getElementById("name").innerHTML = newPokemon.names[4].name;
+            const names = newPokemon.names;
+            names.some((x) => {
+                if (x.language.name == language) {
+                    name = x.name;
+                    return true;
+                }
+            })
         });
+    nameBox.textContent = name;
 }
 
-function keyPress(e){
-    if(e.keyCode === 13){
-        e.preventDefault(); 
+function keyPress(e) {
+    if (e.keyCode === 13) {
+        e.preventDefault();
         enter();
     }
 }
@@ -124,11 +139,11 @@ darkModeBtn.addEventListener("click", () => {
     if (darkMode) {
         darkModeBtn.innerHTML = "☀️";
         document.body.classList.add("darkBody");
-        document.querySelectorAll(".text").forEach((item) => {item.classList.add("darkText")});
+        document.querySelectorAll(".text").forEach((item) => { item.classList.add("darkText") });
     }
     else {
         darkModeBtn.innerHTML = "🌙";
         document.body.classList.remove("darkBody");
-        document.querySelectorAll(".text").forEach((item) => {item.classList.remove("darkText")});
+        document.querySelectorAll(".text").forEach((item) => { item.classList.remove("darkText") });
     }
 })
