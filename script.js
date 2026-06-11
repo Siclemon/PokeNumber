@@ -8,6 +8,7 @@ const maximum = document.querySelector('#max');
 const okBtn = document.querySelector('#ok');
 const darkModeBtn = document.querySelector('#darkModeButton');
 const menuBtn = document.querySelector('.menuIcon');
+const menuCloseBtn = document.querySelector('.menuClose')
 let number = 0;
 let name = '';
 let score = 0;
@@ -151,4 +152,8 @@ darkModeBtn.addEventListener("click", () => {
 
 menuBtn.addEventListener("click", () => {
     document.querySelector('.menu').style.right = '0%';
+})
+
+menuCloseBtn.addEventListener("click", () => {
+    document.querySelector('.menu').style.right = '-45%';
 })
