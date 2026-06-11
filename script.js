@@ -13,15 +13,21 @@ let number = 0;
 let name = '';
 let score = 0;
 let guesses = 0;
-var opacity = 1;
+let opacity = 1;
 let darkMode = false;
 let language = 'fr';
+let pokedex = new Map();
 
 
 minimum.value = 1;
 maximum.value = 1025;
 
-init();
+main();
+
+async function main() {
+    await loadPokedex();
+    init();
+}
 
 async function enter() {
     guesses++;
@@ -30,7 +36,7 @@ async function enter() {
     } else {
         await incorrect();
     }
-    scoreText.innerHTML = score + '/' + guesses;
+    scoreText.textContent = `${score}/${guesses}`;
     init();
 }
 
@@ -90,53 +96,43 @@ function randomInt(min, max) {
 async function init() {
     input.value = '';
 
-    let min = parseInt(minimum.value);
-    let max = parseInt(maximum.value);
+    let min = Math.max(parseInt(minimum.value), 1);
+    let max = Math.min(parseInt(maximum.value), 1025);
 
     number = randomInt(min, max);
+
+    const pokemon = pokedex.get(number);
+
+    nameBox.textContent = pokemon.name[language];
+    const isShiny = Math.random() < 0.02;
+    img.src = isShiny ? pokemon.shiny : pokemon.sprite;
+
     input.focus();
-
-    await fetchImage();
-    await fetchName();
 }
 
-async function fetchImage() {
-    await fetch(`https://pokeapi.co/api/v2/pokemon/${number}`)
-        .then((response) => response.json())
-        .then((newPokemon) => {
-            img.src = newPokemon.sprites.other['official-artwork'].front_default;
-            if (Math.random() - score / 100000 < 0.02) img.src = newPokemon.sprites.other['official-artwork'].front_shiny;
-        });
-}
+async function loadPokedex() {
+    const response = await fetch('./pokedex.json', {cache: "force-cache"});
+    const pokemonList = await response.json(); 
 
-async function fetchName() {
-    await fetch(`https://pokeapi.co/api/v2/pokemon-species/${number}`)
-        .then((response) => response.json())
-        .then((newPokemon) => {
-            const names = newPokemon.names;
-            names.some((x) => {
-                if (x.language.name == language) {
-                    name = x.name;
-                    return true;
-                }
-            })
-        });
-    nameBox.textContent = name;
-}
+    pokemonList.forEach(poke => pokedex.set(poke.id, poke));
+};
 
-function keyPress(e) {
-    if (e.keyCode === 13) {
+//enter
+input.addEventListener("keydown", (e) => {
+    if (e.key === 'Enter') {
         e.preventDefault();
         enter();
     }
-}
+});
 
+//change boundaries
 okBtn.addEventListener("click", () => {
     score = guesses = 0;
-    scoreText.innerHTML = score + '/' + guesses;
+    scoreText.textContent = `${score}/${guesses}`;
     init();
-})
+});
 
+//drakmode toggle
 darkModeBtn.addEventListener("click", () => {
     darkMode = !darkMode;
     if (darkMode) {
@@ -151,19 +147,22 @@ darkModeBtn.addEventListener("click", () => {
         document.querySelectorAll(".text").forEach((item) => { item.classList.remove("darkText") });
         document.querySelectorAll(".cog").forEach((item) => item.classList.remove("darkCog"));
     }
-})
+});
 
+//show menu on mobile
 menuBtn.addEventListener("click", () => {
     document.querySelector('.menu').style.right = '0%';
-})
+});
 
+//hide menu on mobile
 menuCloseBtn.addEventListener("click", () => {
     document.querySelector('.menu').style.right = '-45%';
-})
+});
 
+//change language
 document.querySelectorAll(".flag").forEach((flag) => flag.addEventListener("click", async () => {
     language = flag.id;
     document.querySelectorAll(".flag").forEach((flag) => flag.classList.remove('flagFocus'));
     flag.classList.add('flagFocus');
-    await fetchName();
+    nameBox.textContent = pokedex.get(number).name[language];
 }));
