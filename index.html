@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dex</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css" />
 </head>
 
 <body>
@@ -16,7 +17,7 @@
             <p id="name" class="text"> </p>
         </div>
         <div class="ans">
-            <input type="number" name="q" id="input" autofocus placeholder="Numéro..." onkeypress="keyPress(event)">
+            <input type="number" name="q" id="input" autofocus placeholder="n°..." onkeypress="keyPress(event)">
         </div>
         <div>
             <p id="answer" class="text"></p>
@@ -43,14 +44,22 @@
             </div>
             <div class="boundaries">
                 <div class="minDiv">
-                    <label for="min" id="labelMin">Numéro minimum</label>
+                    <label for="min" id="labelMin">Minimum</label>
                     <input type="number" name="min" id="min" min="1" max="1025" placeholder="1">
                 </div>
                 <div class="maxDiv">
-                    <label for="max" id="labelMax">Numéro maximum</label>
-                    <input type="number" name="max" id="max" min="1" max="1025" placeholder="301">
+                    <label for="max" id="labelMax">Maximum</label>
+                    <input type="number" name="max" id="max" min="1" max="1025" placeholder="1025">
                 </div>
                 <button id="ok">OK</button>
+            </div>
+            <div class="flags">
+                <span class="fi fi-fr flag flagFocus" id="fr"></span>
+                <span class="fi fi-gb flag" id="en"></span>
+                <span class="fi fi-de flag" id="de"></span>
+                <span class="fi fi-es flag" id="es"></span>
+                <span class="fi fi-it flag" id="it"></span>
+                <span class="fi fi-jp flag" id="ja"></span>
             </div>
         </div>
     </div>

@@ -17,6 +17,7 @@ var opacity = 1;
 let darkMode = false;
 let language = 'fr';
 
+
 minimum.value = 1;
 maximum.value = 1025;
 
@@ -95,11 +96,11 @@ async function init() {
     number = randomInt(min, max);
     input.focus();
 
-    await fecthImage();
+    await fetchImage();
     await fetchName();
 }
 
-async function fecthImage() {
+async function fetchImage() {
     await fetch(`https://pokeapi.co/api/v2/pokemon/${number}`)
         .then((response) => response.json())
         .then((newPokemon) => {
@@ -159,3 +160,10 @@ menuBtn.addEventListener("click", () => {
 menuCloseBtn.addEventListener("click", () => {
     document.querySelector('.menu').style.right = '-45%';
 })
+
+document.querySelectorAll(".flag").forEach((flag) => flag.addEventListener("click", async () => {
+    language = flag.id;
+    document.querySelectorAll(".flag").forEach((flag) => flag.classList.remove('flagFocus'));
+    flag.classList.add('flagFocus');
+    await fetchName();
+}));

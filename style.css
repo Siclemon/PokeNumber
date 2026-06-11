@@ -102,6 +102,10 @@ body {
     gap: 5px;
 }
 
+#min, #max {
+    text-align: center;
+}
+
 #ok {
     border-radius: 15px;
     border: 0;
@@ -140,17 +144,6 @@ input::-webkit-inner-spin-button {
 
 .darkText {
     color: antiquewhite;
-}
-
-@media screen and (max-width: 1250px) {
-    .menuContent {
-        opacity: 0;
-    }
-
-    .menu:hover>.menuContent {
-        transition: 0.5s;
-        opacity: 1;
-    }
 }
 
 .menuIcon {
@@ -192,6 +185,44 @@ input::-webkit-inner-spin-button {
     stroke: antiquewhite;
     border-radius: 8px;
     border-color: black;
+}
+
+.flags {
+    display: none;
+    justify-content: space-between;
+    gap: min(2dvw, 30px);
+    margin-top: auto;
+    margin-bottom: 30px;
+}
+
+.menu:hover > .menuContent > .flags {
+    display: flex;
+}
+
+.flag {
+    scale: 150%;
+    display: none;
+    border-radius: 1px;
+    transition: 0.5s;
+}
+
+.flagFocus {
+    box-shadow: 0px 0px 8px 1px hsl(0, 3%, 75%);
+}
+
+@media screen and (max-width: 1250px) {
+    .menuContent {
+        opacity: 0;
+    }
+
+    .menu:hover>.menuContent {
+        transition: 0.5s;
+        opacity: 1;
+    }
+
+    .flag {
+        scale: 120%;
+    }
 }
 
 @media screen and (max-width: 800px) {
