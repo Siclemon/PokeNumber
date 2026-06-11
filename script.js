@@ -142,11 +142,13 @@ darkModeBtn.addEventListener("click", () => {
         darkModeBtn.innerHTML = "☀️";
         document.body.classList.add("darkBody");
         document.querySelectorAll(".text").forEach((item) => { item.classList.add("darkText") });
+        document.querySelectorAll(".cog").forEach((item) => item.classList.add("darkCog"));
     }
     else {
         darkModeBtn.innerHTML = "🌙";
         document.body.classList.remove("darkBody");
         document.querySelectorAll(".text").forEach((item) => { item.classList.remove("darkText") });
+        document.querySelectorAll(".cog").forEach((item) => item.classList.remove("darkCog"));
     }
 })
 

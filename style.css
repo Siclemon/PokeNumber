@@ -166,6 +166,10 @@ input::-webkit-inner-spin-button {
     stroke: hsl(0, 3%, 25%);
 }
 
+.darkCog {
+    stroke: antiquewhite;
+}
+
 .menuBar {
     height: 7px;
     width: 45px;
