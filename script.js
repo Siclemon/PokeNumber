@@ -1,22 +1,25 @@
 const input = document.querySelector('#input');
-const img = document.querySelector('#img');
-const nameBox = document.querySelector('#name');
+const pokemonSprite = document.querySelector('#img');
+const givenInfo = document.querySelector('#name');
 const scoreText = document.querySelector('#score');
-const answer = document.getElementById('answer');
+const solution = document.getElementById('solution');
 const minimum = document.querySelector('#min');
 const maximum = document.querySelector('#max');
 const okBtn = document.querySelector('#ok');
 const darkModeBtn = document.querySelector('#darkModeButton');
 const menuBtn = document.querySelector('.menuIcon');
 const menuCloseBtn = document.querySelector('.menuClose')
-let number = 0;
-let name = '';
+const dataList = document.getElementById('pokemonNames')
+let pokemonId = 0;
+let pokemonName = '';
+let answer = '';
 let score = 0;
 let guesses = 0;
 let opacity = 1;
 let darkMode = false;
 let language = 'fr';
 let pokedex = new Map();
+let gameMode = 'nameToNumber';
 
 
 minimum.value = 1;
@@ -31,7 +34,7 @@ async function main() {
 
 async function enter() {
     guesses++;
-    if (input.value == number) {
+    if (String(input.value).trim().toLowerCase() === String(answer).trim().toLowerCase()) {
         correct();
     } else {
         await incorrect();
@@ -56,7 +59,7 @@ function correct() {
 }
 
 async function incorrect() {
-    answer.textContent = number;
+    solution.textContent = answer;
     input.animate(
         {
             backgroundColor: ["rgb(223, 195, 195)"],
@@ -68,25 +71,25 @@ async function incorrect() {
             easing: "ease-in-out",
         }
     );
-    showAnswer();
+    showSolution();
     await new Promise(r => setTimeout(r, 800));
 }
 
-async function showAnswer() {
-    answer.style.opacity = 1;
+async function showSolution() {
+    solution.style.opacity = 1;
 
     await new Promise(r => setTimeout(r, 700));
 
     opacity = 1;
-    fadeOutAnswer();
+    fadeOutSolution();
 }
 
-function fadeOutAnswer() {
+function fadeOutSolution() {
     if (opacity > 0) {
         opacity -= .1;
-        setTimeout(function () { fadeOutAnswer() }, 80);
+        setTimeout(function () { fadeOutSolution() }, 80);
     }
-    answer.style.opacity = opacity;
+    solution.style.opacity = opacity;
 }
 
 function randomInt(min, max) {
@@ -99,23 +102,50 @@ async function init() {
     let min = Math.max(parseInt(minimum.value), 1);
     let max = Math.min(parseInt(maximum.value), 1025);
 
-    number = randomInt(min, max);
+    pokemonId = randomInt(min, max);
+    const pokemon = pokedex.get(pokemonId);
+    pokemonName = pokemon.name[language];
 
-    const pokemon = pokedex.get(number);
+    switch (gameMode) {
+        case 'nameToNumber':
+            answer = pokemonId;
+            givenInfo.textContent = pokemonName;
+            input.type = 'number';
+            const isShiny = Math.random() < 0.02;
+            pokemonSprite.src = isShiny ? pokemon.shiny : pokemon.sprite;
+            break;
 
-    nameBox.textContent = pokemon.name[language];
-    const isShiny = Math.random() < 0.02;
-    img.src = isShiny ? pokemon.shiny : pokemon.sprite;
+        case 'numberToName':
+            answer = pokemonName;
+            givenInfo.textContent = pokemonId;
+            input.type = 'text';
+            break;
+
+        default:
+            givenInfo.textContent = 'Invalid game mode'
+            break;
+    }
 
     input.focus();
 }
 
 async function loadPokedex() {
-    const response = await fetch('./pokedex.json', {cache: "force-cache"});
-    const pokemonList = await response.json(); 
+    const response = await fetch('./pokedex.json', { cache: "force-cache" });
+    const pokemonList = await response.json();
 
     pokemonList.forEach(poke => pokedex.set(poke.id, poke));
 };
+
+function updateDataList() {
+    dataList.innerHTML = '';
+    if (gameMode === 'numberToName') {
+        for (const [,poke] of pokedex) {
+            const option = document.createElement('option')
+            option.value = poke.name[language];
+            dataList.appendChild(option)
+        }
+    }
+}
 
 //enter
 input.addEventListener("keydown", (e) => {
@@ -160,9 +190,19 @@ menuCloseBtn.addEventListener("click", () => {
 });
 
 //change language
-document.querySelectorAll(".flag").forEach((flag) => flag.addEventListener("click", async () => {
+document.querySelectorAll(".flag").forEach((flag) => flag.addEventListener("click", () => {
     language = flag.id;
     document.querySelectorAll(".flag").forEach((flag) => flag.classList.remove('flagFocus'));
     flag.classList.add('flagFocus');
-    nameBox.textContent = pokedex.get(number).name[language];
+    if (gameMode === 'nameToNumber')
+        givenInfo.textContent = pokedex.get(pokemonId).name[language];
+    else
+        updateDataList();
+}));
+
+//gamemode buttons
+document.querySelectorAll('input[name=mode]').forEach((btn) => btn.addEventListener("click", () => {
+    gameMode = btn.id;
+    init();
+    updateDataList();
 }));

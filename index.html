@@ -17,10 +17,11 @@
             <p id="name" class="text"> </p>
         </div>
         <div class="ans">
-            <input type="number" name="q" id="input" autofocus placeholder="n°...">
+            <input type="number" name="q" id="input" autofocus placeholder="n°..." list="pokemonNames">
+            <datalist id="pokemonNames"></datalist>
         </div>
         <div>
-            <p id="answer" class="text"></p>
+            <p id="solution" class="text"></p>
         </div>
     </div>
     <div class="menuIcon">
@@ -60,6 +61,16 @@
                     <input type="number" name="max" id="max" min="1" max="1025" placeholder="1025">
                 </div>
                 <button id="ok">OK</button>
+            </div>
+            <div class="gameModeDiv">
+                <div>
+                    <input type="radio" name="mode" id="nameToNumber" checked>
+                    <label for="nameToNumber">Abc → #</label>
+                </div>
+                <div>
+                    <input type="radio" name="mode" id="numberToName">
+                    <label for="numberToName"># → Abc</label>
+                </div>
             </div>
             <div class="flags">
                 <span class="fi fi-fr flag flagFocus" id="fr"></span>
