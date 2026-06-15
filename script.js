@@ -17,7 +17,7 @@ let score = 0;
 let guesses = 0;
 let opacity = 1;
 let darkMode = false;
-let language = 'fr';
+let language = 'en';
 let pokedex = new Map();
 let gameMode = 'nameToNumber';
 let localisation = {};
@@ -31,6 +31,8 @@ main();
 async function main() {
     await loadPokedex();
     await loadLocalisation();
+    getBrowserLanguage();
+    translate();
     init();
 }
 
@@ -144,6 +146,13 @@ async function loadLocalisation() {
     localisation = await response.json();
 };
 
+function getBrowserLanguage() {
+    const browserLanguage = navigator.language;
+    const isSupported = ['en','fr','es','it','de','ja'].includes(browserLanguage);
+    language = isSupported ? browserLanguage : 'en';
+    document.getElementById(language).classList.add('flagFocus');
+}
+
 function updateDataList() {
     dataList.innerHTML = '';
     if (gameMode === 'numberToName') {
@@ -230,7 +239,7 @@ menuBtn.addEventListener("click", () => {
 
 //hide menu on mobile
 menuCloseBtn.addEventListener("click", () => {
-    document.querySelector('.menu').style.right = '-45%';
+    document.querySelector('.menu').style.right = '-55%';
 });
 
 //change language
