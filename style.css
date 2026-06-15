@@ -2,7 +2,7 @@
     --bg-light: hsl(34, 78%, 91%);
     --bg-menu: hsl(0, 3%, 25%);
     --input-color: hsl(0, 0%, 87%);
-    --bg-dark: hsl(0, 3%, 10%);
+    --bg-dark: hsl(0, 3%, 14%);
 }
 
 body {
@@ -32,6 +32,15 @@ body {
     width: min(300px, 40dvw);
     height: min(300px, 40dvw);
     margin-bottom: max(-10px, -3dvw);
+}
+
+.noImage > img {
+    display: none;
+}
+
+.noImage > p {
+    margin-top: 15dvh;
+    font-size: 28px;
 }
 
 #input {

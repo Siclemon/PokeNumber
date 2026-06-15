@@ -7,6 +7,7 @@
     <title>Dexno</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css" />
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 </head>
 
 <body>
@@ -14,7 +15,7 @@
         <p id="score" class="text">0/0</p>
         <div class="poke">
             <img id="img" src="" alt="">
-            <p id="name" class="text"> </p>
+            <p id="textInfo" class="text"> </p>
         </div>
         <div class="ans">
             <input type="number" name="q" id="input" autofocus placeholder="n°..." list="pokemonNames">
@@ -53,11 +54,11 @@
             </div>
             <div class="boundaries">
                 <div class="minDiv">
-                    <label for="min" id="labelMin">Minimum</label>
+                    <label for="min" id="labelMin" data-loc="minimumId">Minimum</label>
                     <input type="number" name="min" id="min" min="1" max="1025" placeholder="1">
                 </div>
                 <div class="maxDiv">
-                    <label for="max" id="labelMax">Maximum</label>
+                    <label for="max" id="labelMax" data-loc="maximumId">Maximum</label>
                     <input type="number" name="max" id="max" min="1" max="1025" placeholder="1025">
                 </div>
                 <button id="ok">OK</button>
@@ -65,11 +66,11 @@
             <div class="gameModeDiv">
                 <div>
                     <input type="radio" name="mode" id="nameToNumber" checked>
-                    <label for="nameToNumber">Abc → #</label>
+                    <label for="nameToNumber" data-loc="nameToNumber">Abc → #</label>
                 </div>
                 <div>
                     <input type="radio" name="mode" id="numberToName">
-                    <label for="numberToName"># → Abc</label>
+                    <label for="numberToName" data-loc="numberToName"># → Abc</label>
                 </div>
             </div>
             <div class="flags">

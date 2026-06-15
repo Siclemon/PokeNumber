@@ -1,6 +1,6 @@
 const input = document.querySelector('#input');
 const pokemonSprite = document.querySelector('#img');
-const givenInfo = document.querySelector('#name');
+const givenInfo = document.querySelector('#textInfo');
 const scoreText = document.querySelector('#score');
 const solution = document.getElementById('solution');
 const minimum = document.querySelector('#min');
@@ -20,6 +20,7 @@ let darkMode = false;
 let language = 'fr';
 let pokedex = new Map();
 let gameMode = 'nameToNumber';
+let localisation = {};
 
 
 minimum.value = 1;
@@ -29,6 +30,7 @@ main();
 
 async function main() {
     await loadPokedex();
+    await loadLocalisation();
     init();
 }
 
@@ -136,6 +138,12 @@ async function loadPokedex() {
     pokemonList.forEach(poke => pokedex.set(poke.id, poke));
 };
 
+//loads all the localized text
+async function loadLocalisation() {
+    const response = await fetch('./localisation.json');
+    localisation = await response.json();
+};
+
 function updateDataList() {
     dataList.innerHTML = '';
     if (gameMode === 'numberToName') {
@@ -145,6 +153,42 @@ function updateDataList() {
             dataList.appendChild(option)
         }
     }
+}
+
+function updatePokemonDisplay() {
+    switch (gameMode) {
+        case 'nameToNumber':
+            document.getElementsByClassName('poke')[0].classList.remove('noImage');
+            break;
+
+        case 'numberToName':
+            document.getElementsByClassName('poke')[0].classList.add('noImage');
+            break;
+
+        default:
+            break;
+    }
+}
+
+//translates everything to the selected language
+function translate() {
+    document.querySelectorAll('[data-loc]').forEach(translateElement);
+
+    switch (gameMode) {
+        case 'nameToNumber':
+            input.setAttribute('placeholder',localisation['inputPlaceholderNumber'][language])
+            break;
+
+        case 'numberToName':
+            input.setAttribute('placeholder',localisation['inputPlaceholderName'][language])
+            break;
+    }
+}
+
+//translates one element to the selected language
+function translateElement(element) {
+    const key = element.getAttribute("data-loc");
+    element.textContent = localisation[key][language];
 }
 
 //enter
@@ -198,6 +242,7 @@ document.querySelectorAll(".flag").forEach((flag) => flag.addEventListener("clic
         givenInfo.textContent = pokedex.get(pokemonId).name[language];
     else
         updateDataList();
+    translate();
 }));
 
 //gamemode buttons
@@ -205,4 +250,5 @@ document.querySelectorAll('input[name=mode]').forEach((btn) => btn.addEventListe
     gameMode = btn.id;
     init();
     updateDataList();
+    updatePokemonDisplay();
 }));

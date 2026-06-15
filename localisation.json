@@ -1,0 +1,32 @@
+{
+    "inputPlaceholderName": {
+        "en": "Name...",
+        "fr": "Nom...",
+        "es": "Nombre..."
+    },
+    "inputPlaceholderNumber": {
+        "en": "Number...",
+        "fr": "Numéro...",
+        "es": "Número..." 
+    },
+    "nameToNumber": {
+        "en": "Name → number",
+        "fr": "Nom → numéro",
+        "es": "Nombre → número" 
+    },
+    "numberToName": {
+        "en": "Number → name",
+        "fr": "Numéro → nom",
+        "es": "Número → nombre" 
+    },
+    "minimumId": {
+        "en": "Minimum ID :",
+        "fr": "Nombre minimum :",
+        "es": "Número mínimo :" 
+    },
+    "maximumId": {
+        "en": "Maximum ID : ",
+        "fr": "Nombre maximum :",
+        "es": "Número máximo :" 
+    }
+}
