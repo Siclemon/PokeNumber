@@ -1,12 +1,19 @@
 :root {
-    --bg-light: hsl(34, 78%, 91%);
+    --bg: hsl(34, 78%, 91%);
     --bg-menu: hsl(0, 3%, 25%);
+    --menu-text: var(--bg);
     --input-color: hsl(0, 0%, 87%);
-    --bg-dark: hsl(0, 3%, 14%);
+    --mobile-menu-icon: var(--bg-menu);
+}
+
+.darkMode {
+    --bg: hsl(0, 3%, 14%);
+    --main-text: hsl(34, 78%, 91%);
+    --mobile-menu-icon: hsl(34, 78%, 91%);
 }
 
 body {
-    background-color: var(--bg-light);
+    background-color: var(--bg);
     overflow-x: hidden;
     margin: 0;
     padding: 0;
@@ -18,6 +25,10 @@ body {
     align-items: center;
     margin-top: min(100px, 4dvw);
     transition: 0.2s;
+}
+
+.text {
+    color: var(--main-text);
 }
 
 .poke {
@@ -79,7 +90,7 @@ body {
     transition: 0.5s;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 17px;
-    color: var(--bg-light);
+    color: var(--menu-text);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -134,7 +145,7 @@ input::-webkit-inner-spin-button {
 }
 
 .darkModeButton {
-    background-color: var(--bg-light);
+    background-color: var(--menu-text);
     border-radius: 50px;
     height: 40px;
     width: 40px;
@@ -147,14 +158,6 @@ input::-webkit-inner-spin-button {
 
 .darkModeButton:hover {
     background-color: hsl(34, 36%, 77%);
-}
-
-.darkBody {
-    background-color: var(--bg-dark);
-}
-
-.darkText {
-    color: var(--bg-light);
 }
 
 .menuIcon {
@@ -194,15 +197,11 @@ input::-webkit-inner-spin-button {
 }
 
 .cog2 {
-    stroke: var(--bg-light);
+    stroke: var(--menu-text);
 }
 
 .cog {
-    stroke: var(--bg-menu);
-}
-
-.darkCog {
-    stroke: var(--bg-light);
+    stroke: var(--mobile-menu-icon);
 }
 
 .menuClose {
@@ -218,7 +217,7 @@ input::-webkit-inner-spin-button {
 }
 
 .x {
-    stroke: var(--bg-light);
+    stroke: var(--menu-text);
     border-radius: 8px;
 }
 
@@ -242,7 +241,7 @@ input::-webkit-inner-spin-button {
 }
 
 .flagFocus {
-    box-shadow: 0px 0px 8px 1px var(--bg-light);
+    box-shadow: 0px 0px 8px 1px var(--menu-text);
 }
 
 @media screen and (max-width: 1250px) {

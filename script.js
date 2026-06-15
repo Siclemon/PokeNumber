@@ -16,10 +16,10 @@ let answer = '';
 let score = 0;
 let guesses = 0;
 let opacity = 1;
-let darkMode = false;
+let darkMode = localStorage.getItem('darkMode') ?? false;
 let language = 'en';
 let pokedex = new Map();
-let gameMode = 'nameToNumber';
+let gameMode = localStorage.getItem('gameMode') ?? 'nameToNumber';
 let localisation = {};
 
 
@@ -31,9 +31,11 @@ main();
 async function main() {
     await loadPokedex();
     await loadLocalisation();
+    setDarkLightMode();
     getBrowserLanguage();
     translate();
     init();
+    updatePokemonDisplay();
 }
 
 async function enter() {
@@ -197,7 +199,19 @@ function translate() {
 //translates one element to the selected language
 function translateElement(element) {
     const key = element.getAttribute("data-loc");
-    element.textContent = localisation[key][language];
+    element.textContent = localisation[key][language] ?? localisation[key]['en'];
+}
+
+function setDarkLightMode() {
+    if (darkMode) {
+        darkModeBtn.innerHTML = "☀️";
+        document.body.classList.add('darkMode');
+    }
+    else {
+        darkModeBtn.innerHTML = "🌙";
+        document.body.classList.remove('darkMode');
+    }
+    localStorage.setItem('darkMode', darkMode);
 }
 
 //enter
@@ -218,18 +232,7 @@ okBtn.addEventListener("click", () => {
 //drakmode toggle
 darkModeBtn.addEventListener("click", () => {
     darkMode = !darkMode;
-    if (darkMode) {
-        darkModeBtn.innerHTML = "☀️";
-        document.body.classList.add("darkBody");
-        document.querySelectorAll(".text").forEach((item) => { item.classList.add("darkText") });
-        document.querySelectorAll(".cog").forEach((item) => item.classList.add("darkCog"));
-    }
-    else {
-        darkModeBtn.innerHTML = "🌙";
-        document.body.classList.remove("darkBody");
-        document.querySelectorAll(".text").forEach((item) => { item.classList.remove("darkText") });
-        document.querySelectorAll(".cog").forEach((item) => item.classList.remove("darkCog"));
-    }
+    setDarkLightMode();
 });
 
 //show menu on mobile
@@ -257,6 +260,7 @@ document.querySelectorAll(".flag").forEach((flag) => flag.addEventListener("clic
 //gamemode buttons
 document.querySelectorAll('input[name=mode]').forEach((btn) => btn.addEventListener("click", () => {
     gameMode = btn.id;
+    localStorage.setItem('gameMode',gameMode);
     init();
     updateDataList();
     updatePokemonDisplay();
