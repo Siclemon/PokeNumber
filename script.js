@@ -13,7 +13,7 @@ const dataList = document.getElementById('pokemonNames')
 let pokemonId = 0;
 let pokemonName = '';
 let answer = '';
-let minimumId = localStorage.getItem('miminumId') ?? 1;
+let minimumId = localStorage.getItem('mininumId') ?? 1;
 let maximumId = localStorage.getItem('maximumId') ?? 1025;
 let score = 0;
 let guesses = 0;
@@ -22,6 +22,8 @@ let language = 'en';
 let pokedex = new Map();
 let gameMode = localStorage.getItem('gameMode') ?? 'nameToNumber';
 let localisation = {};
+let buffer = []; //find a better name
+let bufferSize = 0;
 
 start();
 
@@ -32,10 +34,11 @@ async function start() {
     getBrowserLanguage();
     translatePage();
     updatePokemonDisplay();
+    initializeBuffer();
     newRound();
 }
 
-async function enter() {
+function enter() {
     guesses++;
     if (String(input.value).trim().toLowerCase() === String(answer).trim().toLowerCase()) {
         correct();
@@ -98,14 +101,58 @@ function getBoundaries() {
     localStorage.setItem('maximumId', maximumId);
 }
 
-async function newRound() {
+//sets the buffer size depending on the minimum and maximum values entered
+function setBufferSize() {
+    const range = maximumId - minimumId;
+
+    if (range < 2)
+        bufferSize = 0;
+    else if (range === 2 || range === 3)
+        bufferSize = 1;
+    else if (range === 4 || range === 5)
+        bufferSize = 2;
+    else {
+        bufferSize = clamp(3, Math.floor(range / 10), 20);
+    }
+}
+
+//clamps a value within a range of values between a defined minimum bound and a maximum bound
+function clamp(min, val, max) {
+    return Math.min(max, Math.max(val, min));
+}
+
+//initializes the buffer by filling it with IDs
+function initializeBuffer() {
+    setBufferSize();
+    buffer = [];
+    for (let i = 0; i < bufferSize; i++) {
+        buffer.push(randomInt(minimumId, maximumId));
+    }
+}
+
+//adds the current id to the buffer and removes the oldest one
+function updateBuffer() {
+    buffer.unshift(pokemonId);
+    buffer.pop();
+}
+
+//gets a new id, different from the ones in the buffer
+function getNewId() {
+    while (true) {
+        const newId = randomInt(minimumId, maximumId);
+        if (!buffer.includes(newId)) {
+            return newId;
+        }
+    }
+}
+
+function newRound() {
     input.value = '';
 
-    getBoundaries();
-
-    pokemonId = randomInt(minimumId, maximumId);
+    pokemonId = getNewId();
     const pokemon = pokedex.get(pokemonId);
     pokemonName = pokemon.name[language];
+    updateBuffer();
 
     switch (gameMode) {
         case 'nameToNumber':
@@ -230,6 +277,8 @@ input.addEventListener("keydown", (e) => {
 //change boundaries
 okBtn.addEventListener("click", () => {
     resetScore();
+    getBoundaries();
+    initializeBuffer();
     newRound();
 });
 
