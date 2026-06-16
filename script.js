@@ -23,20 +23,16 @@ let pokedex = new Map();
 let gameMode = localStorage.getItem('gameMode') ?? 'nameToNumber';
 let localisation = {};
 
+start();
 
-minimumInput.value = minimumId;
-maximumInput.value = maximumId;
-
-main();
-
-async function main() {
+async function start() {
     await loadPokedex();
     await loadLocalisation();
     setDarkLightMode();
     getBrowserLanguage();
-    translate();
-    init();
+    translatePage();
     updatePokemonDisplay();
+    newRound();
 }
 
 async function enter() {
@@ -47,7 +43,7 @@ async function enter() {
         incorrect();
     }
     scoreText.textContent = `${score}/${guesses}`;
-    init();
+    newRound();
 }
 
 function correct() {
@@ -61,7 +57,7 @@ function incorrect() {
 }
 
 function animateInputFeedback(color) {
-        input.animate(
+    input.animate(
         {
             backgroundColor: [color],
             offset: 0.2
@@ -92,17 +88,20 @@ function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function getMinMax() {
+function getBoundaries() {
     minimumId = Math.max(parseInt(minimumInput.value), 1);
     maximumId = Math.min(parseInt(maximumInput.value), 1025);
+    minimumId = minimumId <= maximumId ? minimumId : 1;
+    minimumInput.value = minimumId;
+    maximumInput.value = maximumId;
     localStorage.setItem('minimumId', minimumId);
     localStorage.setItem('maximumId', maximumId);
 }
 
-async function init() {
+async function newRound() {
     input.value = '';
 
-    getMinMax();
+    getBoundaries();
 
     pokemonId = randomInt(minimumId, maximumId);
     const pokemon = pokedex.get(pokemonId);
@@ -182,7 +181,7 @@ function updatePokemonDisplay() {
 }
 
 //translates everything to the selected language
-function translate() {
+function translatePage() {
     document.querySelectorAll('[data-loc]').forEach(translateElement);
 
     switch (gameMode) {
@@ -215,6 +214,11 @@ function setDarkLightMode() {
     localStorage.setItem('darkMode', darkMode);
 }
 
+function resetScore() {
+    score = guesses = 0;
+    scoreText.textContent = `${score}/${guesses}`;
+}
+
 //enter
 input.addEventListener("keydown", (e) => {
     if (e.key === 'Enter') {
@@ -225,9 +229,8 @@ input.addEventListener("keydown", (e) => {
 
 //change boundaries
 okBtn.addEventListener("click", () => {
-    score = guesses = 0;
-    scoreText.textContent = `${score}/${guesses}`;
-    init();
+    resetScore();
+    newRound();
 });
 
 //drakmode toggle
@@ -255,14 +258,15 @@ document.querySelectorAll(".flag").forEach((flag) => flag.addEventListener("clic
         givenInfo.textContent = pokedex.get(pokemonId).name[language];
     else
         updateDataList();
-    translate();
+    translatePage();
 }));
 
 //gamemode buttons
 document.querySelectorAll('input[name=mode]').forEach((btn) => btn.addEventListener("click", () => {
     gameMode = btn.id;
     localStorage.setItem('gameMode', gameMode);
-    init();
+    resetScore();
+    newRound();
     updateDataList();
     updatePokemonDisplay();
 }));

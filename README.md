@@ -7,7 +7,7 @@
 - ✅ Dark mode
 - 🛠️ Add more text so everything is clearer (with translations :/)
 - ❌ Make the menu UI prettier
-- ❌ Add safety for boundaries (no min > max)
+- ✅ Add safety for boundaries (no min > max)
 - ❌ Add a small(?) buffer to avoid repetition
 
 ---
