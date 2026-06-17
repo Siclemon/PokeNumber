@@ -161,8 +161,7 @@ function newRound() {
             givenInfo.textContent = pokemonName;
             input.type = 'number';
             const isShiny = Math.random() < 0.3;
-            if (isShiny)
-                pokemonSprite.onload = shinyShake();
+            pokemonSprite.onload = () => {if (isShiny) shinyShake()};
             pokemonSprite.src = isShiny ? pokemon.shiny : pokemon.sprite;
 
             break;
@@ -184,13 +183,13 @@ function newRound() {
 function shinyShake() {
     pokemonSprite.animate(
         [
-            { transform: "translate(0rem, 0rem)", offset:0.5},
-            { transform: "translate(2rem, 1rem)" },
-            { transform: "translate(-1rem, -3rem)" },
-            { transform: "translate(1rem, 2.5rem)" },
+            { transform: "translate(0rem, 0rem)", offset:0.3},
+            { transform: "translate(1rem, 0.5rem)" },
+            { transform: "translate(-0.5rem, -1.5rem)" },
+            { transform: "translate(0.5rem, 1.2rem)" },
         ],
         {
-            duration: 300
+            duration: 200
         }
     )
 }
