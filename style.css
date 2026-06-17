@@ -17,6 +17,7 @@ body {
     overflow-x: hidden;
     margin: 0;
     padding: 0;
+    font-size: 1.1rem;
 }
 
 .all {
@@ -123,9 +124,9 @@ body {
     gap: 5px;
 }
 
-#min,
-#max {
+.boundaryInput {
     text-align: center;
+    background-color: var(--input-color);
 }
 
 #restart {
@@ -271,6 +272,10 @@ input::-webkit-inner-spin-button {
         opacity: 1;
     }
 
+    .flags {
+        width: 23dvw;
+    }
+
     .flag {
         scale: 120%;
     }
@@ -290,8 +295,8 @@ input::-webkit-inner-spin-button {
     }
 
     .menu {
-        width: 55%;
-        right: -55%;
+        width: 60%;
+        right: -60%;
     }
 
     .menuIcon {
@@ -306,5 +311,9 @@ input::-webkit-inner-spin-button {
 
     .panelMenuIcon {
         display: none;
+    }
+
+    .flags {
+        width: 45dvw;
     }
 }

@@ -85,7 +85,7 @@ function showSolution() {
         {
             duration: 1200
         }
-    )
+    );
 }
 
 function randomInt(min, max) {
@@ -160,8 +160,11 @@ function newRound() {
             answer = pokemonId;
             givenInfo.textContent = pokemonName;
             input.type = 'number';
-            const isShiny = Math.random() < 0.02;
+            const isShiny = Math.random() < 0.3;
+            if (isShiny)
+                pokemonSprite.onload = shinyShake();
             pokemonSprite.src = isShiny ? pokemon.shiny : pokemon.sprite;
+
             break;
 
         case 'numberToName':
@@ -176,6 +179,20 @@ function newRound() {
     }
 
     input.focus();
+}
+
+function shinyShake() {
+    pokemonSprite.animate(
+        [
+            { transform: "translate(0rem, 0rem)", offset:0.5},
+            { transform: "translate(2rem, 1rem)" },
+            { transform: "translate(-1rem, -3rem)" },
+            { transform: "translate(1rem, 2.5rem)" },
+        ],
+        {
+            duration: 300
+        }
+    )
 }
 
 //loads the pokedex from the local json into a map object
@@ -319,7 +336,7 @@ menuBtn.addEventListener("click", () => {
 
 //hide menu on mobile
 menuCloseBtn.addEventListener("click", () => {
-    document.querySelector('.menu').style.right = '-55%';
+    document.querySelector('.menu').style.right = '-60%';
 });
 
 //change language
