@@ -2,31 +2,49 @@
     "inputPlaceholderName": {
         "en": "Name...",
         "fr": "Nom...",
-        "es": "Nombre..."
+        "es": "Nombre...",
+        "de": "Name...",
+        "it": "Nome...",
+        "ja": "名前..."
     },
     "inputPlaceholderNumber": {
         "en": "Number...",
         "fr": "Numéro...",
-        "es": "Número..." 
+        "es": "Número...",
+        "de": "Nummer...",
+        "it": "Numero...",
+        "ja": "番号..."
     },
     "nameToNumber": {
         "en": "Name → number",
         "fr": "Nom → numéro",
-        "es": "Nombre → número" 
+        "es": "Nombre → número",
+        "de": "Name → Nummer",
+        "it": "Nome → numero",
+        "ja": "名前 → 番号"
     },
     "numberToName": {
         "en": "Number → name",
         "fr": "Numéro → nom",
-        "es": "Número → nombre" 
+        "es": "Número → nombre",
+        "de": "Nummer → Name",
+        "it": "Numero → nome",
+        "ja": "番号 → 名前"
     },
     "minimumId": {
         "en": "Minimum ID :",
         "fr": "Nombre minimum :",
-        "es": "Número mínimo :" 
+        "es": "Número mínimo :",
+        "de": "Mindestanzahl :",
+        "it": "Numero minimo :",
+        "ja": "最小数 :"
     },
     "maximumId": {
         "en": "Maximum ID : ",
         "fr": "Nombre maximum :",
-        "es": "Número máximo :" 
+        "es": "Número máximo :",
+        "de": "Maximale Anzahl :",
+        "it": "Numero massimo :",
+        "ja": "最大数 :"
     }
 }
