@@ -55,13 +55,12 @@
             <div class="boundaries">
                 <div class="minDiv">
                     <label for="min" id="labelMin" data-loc="minimumId">Minimum</label>
-                    <input type="number" name="min" id="min" min="1" max="1025" placeholder="1">
+                    <input type="number" name="min" id="min" min="1" max="1025" placeholder="1" class="boundaryInput">
                 </div>
                 <div class="maxDiv">
                     <label for="max" id="labelMax" data-loc="maximumId">Maximum</label>
-                    <input type="number" name="max" id="max" min="1" max="1025" placeholder="1025">
+                    <input type="number" name="max" id="max" min="1" max="1025" placeholder="1025" class="boundaryInput">
                 </div>
-                <button id="ok">OK</button>
             </div>
             <div class="gameModeDiv">
                 <div>
@@ -73,6 +72,7 @@
                     <label for="numberToName" data-loc="numberToName"># → Abc</label>
                 </div>
             </div>
+            <button id="restart">Recommencer</button>
             <div class="flags">
                 <span class="fi fi-fr flag" id="fr"></span>
                 <span class="fi fi-gb flag" id="en"></span>

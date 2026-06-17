@@ -46,5 +46,21 @@
         "de": "Maximale Anzahl :",
         "it": "Numero massimo :",
         "ja": "最大数 :"
+    },
+    "restart": {
+        "en": "Restart",
+        "fr": "Recommencer",
+        "es": "Reiniciar",
+        "de": "Wiederholen",
+        "it": "Riavvia",
+        "ja": "再起動"
+    },
+    "applyAndRestart": {
+        "en": "Apply and restart",
+        "fr": "Appliquer et recommencer",
+        "es": "Aplicar y reiniciar",
+        "de": "Anwenden und wiederholen",
+        "it": "Applica e riavvia",
+        "ja": "適用して再起動"
     }
 }

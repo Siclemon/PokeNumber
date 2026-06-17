@@ -5,11 +5,11 @@
 - ✅ Language options
 - ✅ Put all Pokémon data into a local json (to optimize fetch time)
 - ✅ Dark mode
-- 🛠️ Add more text so everything is clearer (with translations :/)
+- ✅ Add more text so everything is clearer (with translations :/)
 - ❌ Make the menu UI prettier
 - ✅ Add safety for boundaries (no min > max)
 - ✅ Add a small(?) buffer to avoid repetition
-- ❌ Add a small animation for shinies
+- ~~❌ Add a small animation for shinies~~
 
 ---
 

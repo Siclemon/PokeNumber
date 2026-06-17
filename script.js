@@ -5,7 +5,7 @@ const scoreText = document.querySelector('#score');
 const solution = document.getElementById('solution');
 const minimumInput = document.querySelector('#min');
 const maximumInput = document.querySelector('#max');
-const okBtn = document.querySelector('#ok');
+const restartBtn = document.querySelector('#restart');
 const darkModeBtn = document.querySelector('#darkModeButton');
 const menuBtn = document.querySelector('.menuIcon');
 const menuCloseBtn = document.querySelector('.menuClose')
@@ -24,6 +24,7 @@ let gameMode = localStorage.getItem('gameMode') ?? 'nameToNumber';
 let localisation = {};
 let buffer = []; //find a better name
 let bufferSize = 0;
+let optionChange = false;
 
 start();
 
@@ -230,6 +231,7 @@ function updatePokemonDisplay() {
 //translates everything to the selected language
 function translatePage() {
     document.querySelectorAll('[data-loc]').forEach(translateElement);
+    updateRestartButtonDisplay();
 
     switch (gameMode) {
         case 'nameToNumber':
@@ -266,6 +268,26 @@ function resetScore() {
     scoreText.textContent = `${score}/${guesses}`;
 }
 
+//updates the boundaries, the datalist and the display according to the options
+function applyOptionsChanges() {
+    getBoundaries();
+    updateDataList();
+    updatePokemonDisplay();
+    optionChange = false;
+}
+
+//upadtes the text of the 'restart' button
+function updateRestartButtonDisplay() {
+    let key;
+    if (optionChange) {
+        key = 'applyAndRestart';
+    } else {
+        key = 'restart';
+    }
+
+    restartBtn.innerText = localisation[key][language] ?? localisation[key]['en']
+}
+
 //enter
 input.addEventListener("keydown", (e) => {
     if (e.key === 'Enter') {
@@ -274,10 +296,12 @@ input.addEventListener("keydown", (e) => {
     }
 });
 
-//change boundaries
-okBtn.addEventListener("click", () => {
+//starts a new game (and applies options changes)
+restartBtn.addEventListener("click", () => {
+    if (optionChange)
+        applyOptionsChanges();
+    updateRestartButtonDisplay();
     resetScore();
-    getBoundaries();
     initializeBuffer();
     newRound();
 });
@@ -314,8 +338,12 @@ document.querySelectorAll(".flag").forEach((flag) => flag.addEventListener("clic
 document.querySelectorAll('input[name=mode]').forEach((btn) => btn.addEventListener("click", () => {
     gameMode = btn.id;
     localStorage.setItem('gameMode', gameMode);
-    resetScore();
-    newRound();
-    updateDataList();
-    updatePokemonDisplay();
+    optionChange = true;
+    updateRestartButtonDisplay();
 }));
+
+//checks whenever the min/max values change
+document.querySelectorAll('.boundaryInput').forEach((element) => element.addEventListener("input", () => {
+    optionChange = true;
+    updateRestartButtonDisplay();
+}))
