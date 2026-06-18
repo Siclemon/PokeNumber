@@ -8,8 +8,9 @@ const maximumInput = document.querySelector('#max');
 const restartBtn = document.querySelector('#restart');
 const darkModeBtn = document.querySelector('#darkModeButton');
 const menuBtn = document.querySelector('.menuIcon');
-const menuCloseBtn = document.querySelector('.menuClose')
-const dataList = document.getElementById('pokemonNames')
+const menuCloseBtn = document.querySelector('.menuClose');
+const dataList = document.getElementById('pokemonNames');
+const shinyShakeToggle = document.getElementById('shinyShake');
 let pokemonId = 0;
 let pokemonName = '';
 let answer = '';
@@ -22,15 +23,18 @@ let language = 'en';
 let pokedex = new Map();
 let gameMode = localStorage.getItem('gameMode') ?? 'nameToNumber';
 let localisation = {};
-let buffer = []; //find a better name
+let buffer = []; //find a better name (or not?)
 let bufferSize = 0;
 let optionChange = false;
+let shinyShakeActive = (localStorage.getItem('shinyShakeActive') === 'true') ?? true;
 
 start();
 
 async function start() {
+    console.log(`start : shinyShakeActive = ${shinyShakeActive}`)
     await loadPokedex();
     await loadLocalisation();
+    shinyShakeToggle.checked = !shinyShakeActive;
     setDarkLightMode();
     getBrowserLanguage();
     translatePage();
@@ -161,7 +165,7 @@ function newRound() {
             givenInfo.textContent = pokemonName;
             input.type = 'number';
             const isShiny = Math.random() < 0.3;
-            pokemonSprite.onload = () => {if (isShiny) shinyShake()};
+            pokemonSprite.onload = () => {if (isShiny && shinyShakeActive) shinyShake()};
             pokemonSprite.src = isShiny ? pokemon.shiny : pokemon.sprite;
 
             break;
@@ -183,13 +187,13 @@ function newRound() {
 function shinyShake() {
     pokemonSprite.animate(
         [
-            { transform: "translate(0rem, 0rem)", offset:0.3},
+            { transform: "translate(0rem, 0rem)", offset:0.2},
             { transform: "translate(1rem, 0.5rem)" },
             { transform: "translate(-0.5rem, -1.5rem)" },
             { transform: "translate(0.5rem, 1.2rem)" },
         ],
         {
-            duration: 200
+            duration: 180
         }
     )
 }
@@ -363,3 +367,11 @@ document.querySelectorAll('.boundaryInput').forEach((element) => element.addEven
     optionChange = true;
     updateRestartButtonDisplay();
 }))
+
+//toggles the shiny shaking animation
+shinyShakeToggle.addEventListener('change', () => {
+    console.log(shinyShakeActive)
+    shinyShakeActive = !shinyShakeToggle.checked;
+    localStorage.setItem('shinyShakeActive', shinyShakeActive);
+    console.log(shinyShakeActive)
+})

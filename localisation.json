@@ -62,5 +62,13 @@
         "de": "Anwenden und wiederholen",
         "it": "Applica e riavvia",
         "ja": "適用して再起動"
+    },
+    "shakingToggle": {
+        "en": "Disable shaking",
+        "fr": "Désactiver les tremblement",
+        "es": "Desactivar la vibración",
+        "de": "Schütteln deaktivieren",
+        "it": "Disattivare il tremolio",
+        "ja": "シェイクを無効にする"
     }
 }
