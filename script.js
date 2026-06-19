@@ -31,10 +31,11 @@ let shinyShakeActive = (localStorage.getItem('shinyShakeActive') === 'true') ?? 
 start();
 
 async function start() {
-    console.log(`start : shinyShakeActive = ${shinyShakeActive}`)
     await loadPokedex();
     await loadLocalisation();
     shinyShakeToggle.checked = !shinyShakeActive;
+    minimumInput.value = minimumId;
+    maximumInput.value = maximumId;
     setDarkLightMode();
     getBrowserLanguage();
     translatePage();
