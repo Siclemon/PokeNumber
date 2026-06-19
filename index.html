@@ -59,7 +59,8 @@
                 </div>
                 <div class="maxDiv">
                     <label for="max" id="labelMax" data-loc="maximumId">Maximum</label>
-                    <input type="number" name="max" id="max" min="1" max="1025" placeholder="1025" class="boundaryInput">
+                    <input type="number" name="max" id="max" min="1" max="1025" placeholder="1025"
+                        class="boundaryInput">
                 </div>
             </div>
             <div class="gameModeDiv">
@@ -77,6 +78,18 @@
                 <div>
                     <input type="checkbox" name="shinyShake" id="shinyShake">
                     <label for="shinyShake" data-loc="shakingToggle">Désactiver les tremblements</label>
+                </div>
+            </div>
+            <div class="shinyStats">
+                <div class="caughtShinies">
+                    <p class="caughtShiniesNumber" id="caughtShiniesNumber"></p>
+                    <p class="caughtShiniesTextSingular shinyText" id="caughtShiniesTextSingular" data-loc="caughtShiniesTextSingular"> shiny attrapé</p>
+                    <p class="caughtShiniesTextPlural shinyText" id="caughtShiniesTextPlural" data-loc="caughtShiniesTextPlural"> shinys attrapés</p>
+                </div>
+                <div class="missedShinies">
+                    <p class="missedShiniesNumber" id="missedShiniesNumber"></p>
+                    <p class="missedShiniesTextSingular shinyText" id="missedShiniesTextSingular" data-loc="missedShiniesTextSingular"> shiny loupé</p>
+                    <p class="missedShiniesTextPlural shinyText" id="missedShiniesTextPlural" data-loc="missedShiniesTextPlural"> shinys loupés</p>
                 </div>
             </div>
             <div class="flags">

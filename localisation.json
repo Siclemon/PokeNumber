@@ -70,5 +70,37 @@
         "de": "Schütteln deaktivieren",
         "it": "Disattivare il tremolio",
         "ja": "シェイクを無効にする"
+    },
+    "caughtShiniesTextSingular": {
+        "en": "shiny caught",
+        "fr": "shiny attrapé",
+        "es": "Desactivar la vibración",
+        "de": "Schütteln deaktivieren",
+        "it": "Disattivare il tremolio",
+        "ja": "シェイクを無効にする"
+    },
+    "caughtShiniesTextPlural": {
+        "en": "shinies caught",
+        "fr": "shinys attrapés",
+        "es": "Desactivar la vibración",
+        "de": "Schütteln deaktivieren",
+        "it": "Disattivare il tremolio",
+        "ja": "シェイクを無効にする"
+    },
+    "missedShiniesTextSingular": {
+        "en": "shiny missed",
+        "fr": "shiny loupé",
+        "es": "Desactivar la vibración",
+        "de": "Schütteln deaktivieren",
+        "it": "Disattivare il tremolio",
+        "ja": "シェイクを無効にする"
+    },
+    "missedShiniesTextPlural": {
+        "en": "shinies missed",
+        "fr": "shinys loupés",
+        "es": "Desactivar la vibración",
+        "de": "Schütteln deaktivieren",
+        "it": "Disattivare il tremolio",
+        "ja": "シェイクを無効にする"
     }
 }

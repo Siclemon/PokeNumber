@@ -11,6 +11,12 @@ const menuBtn = document.querySelector('.menuIcon');
 const menuCloseBtn = document.querySelector('.menuClose');
 const dataList = document.getElementById('pokemonNames');
 const shinyShakeToggle = document.getElementById('shinyShake');
+const caughtShiniesCounter = document.getElementById('caughtShiniesNumber');
+const caughtShiniesTextSingular = document.getElementById('caughtShiniesTextSingular');
+const caughtShiniesTextPlural = document.getElementById('caughtShiniesTextPlural');
+const missedShiniesCounter = document.getElementById('missedShiniesNumber');
+const missedShiniesTextSingular = document.getElementById('missedShiniesTextSingular');
+const missedShiniesTextPlural = document.getElementById('missedShiniesTextPlural');
 let pokemonId = 0;
 let pokemonName = '';
 let answer = '';
@@ -27,6 +33,9 @@ let buffer = []; //find a better name (or not?)
 let bufferSize = 0;
 let optionChange = false;
 let shinyShakeActive = (localStorage.getItem('shinyShakeActive') === 'true') ?? true;
+let isShiny = false;
+let caughtShinies = 0;
+let missedShinies = 0;
 
 start();
 
@@ -58,11 +67,35 @@ function enter() {
 function correct() {
     score++;
     animateInputFeedback("hsl(110, 35%, 82%)");
+    if (isShiny) updateCaughtShinies();
 }
 
 function incorrect() {
     animateInputFeedback("hsl(0, 35%, 82%)");
     showSolution();
+    if (isShiny) updateMissedShinies();
+}
+
+function updateCaughtShinies() {
+    caughtShinies++;
+    caughtShiniesCounter.textContent = caughtShinies;
+    if (caughtShinies === 1) 
+        caughtShiniesTextSingular.style.display = 'block';
+    if (caughtShinies > 1) {
+        caughtShiniesTextSingular.style.display = 'none';
+        caughtShiniesTextPlural.style.display = 'block';
+    }
+}
+
+function updateMissedShinies() {
+    missedShinies++;
+    missedShiniesCounter.textContent = missedShinies;
+    if (missedShinies === 1) 
+        missedShiniesTextSingular.style.display = 'block';
+    if (missedShinies > 1) {
+        missedShiniesTextSingular.style.display = 'none';
+        missedShiniesTextPlural.style.display = 'block';
+    }
 }
 
 function animateInputFeedback(color) {
@@ -165,7 +198,7 @@ function newRound() {
             answer = pokemonId;
             givenInfo.textContent = pokemonName;
             input.type = 'number';
-            const isShiny = Math.random() < 0.3;
+            isShiny = Math.random() < 0.4;
             pokemonSprite.onload = () => {if (isShiny && shinyShakeActive) shinyShake()};
             pokemonSprite.src = isShiny ? pokemon.shiny : pokemon.sprite;
 
