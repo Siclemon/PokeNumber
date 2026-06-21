@@ -198,10 +198,9 @@ function newRound() {
             answer = pokemonId;
             givenInfo.textContent = pokemonName;
             input.type = 'number';
-            isShiny = Math.random() < 0.4;
+            isShiny = Math.random() < 0.02;
             pokemonSprite.onload = () => {if (isShiny && shinyShakeActive) shinyShake()};
             pokemonSprite.src = isShiny ? pokemon.shiny : pokemon.sprite;
-
             break;
 
         case 'numberToName':
@@ -209,6 +208,15 @@ function newRound() {
             givenInfo.textContent = pokemonId;
             input.type = 'text';
             break;
+
+        case 'imageToName':
+            answer = pokemonName;
+            input.type = 'text';
+            isShiny = Math.random() < 0.02;
+            pokemonSprite.onload = () => {if (isShiny && shinyShakeActive) shinyShake()};
+            pokemonSprite.src = isShiny ? pokemon.shiny : pokemon.sprite;
+            break;
+
 
         default:
             givenInfo.textContent = 'Invalid game mode'
@@ -257,7 +265,7 @@ function getBrowserLanguage() {
 //updtaes the dropdown list with all localized pokémon names
 function updateDataList() {
     dataList.innerHTML = '';
-    if (gameMode === 'numberToName') {
+    if (gameMode === 'numberToName' || gameMode === 'imageToName') {
         for (const [, poke] of pokedex) {
             const option = document.createElement('option')
             option.value = poke.name[language];
@@ -275,6 +283,10 @@ function updatePokemonDisplay() {
 
         case 'numberToName':
             document.getElementsByClassName('poke')[0].classList.add('noImage');
+            break;
+
+        case 'imageToName':
+            document.getElementsByClassName('poke')[0].classList.remove('noImage');
             break;
 
         default:

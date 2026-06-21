@@ -152,13 +152,20 @@ body {
 }
 
 .shinyStats {
-    
+    display: flex;
+    flex-direction: column;
+    gap: 0;
 }
 
 .caughtShinies,
 .missedShinies {
     display: flex;
     gap: 0.25rem;
+}
+
+.caughtShinies p,
+.missedShinies p {
+    margin: 0;
 }
 
 .shinyText {
