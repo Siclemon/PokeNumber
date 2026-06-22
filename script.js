@@ -46,7 +46,7 @@ async function start() {
     minimumInput.value = minimumId;
     maximumInput.value = maximumId;
     setDarkLightMode();
-    getBrowserLanguage();
+    getLanguage();
     updatePokemonDisplay();
     initializeBuffer(); //anti repetition buffer
     newRound();
@@ -254,11 +254,11 @@ async function loadLocalisation() {
     localisation = await response.json();
 };
 
-//get the browser preferred language
-function getBrowserLanguage() {
-    const browserLanguage = navigator.language;
-    const isSupported = ['en', 'fr', 'es', 'it', 'de', 'ja'].includes(browserLanguage);
-    language = isSupported ? browserLanguage : 'en';
+//gets the browser preferred language
+function getLanguage() {
+    const preferredLanguage = localStorage.getItem('language') ?? navigator.language;
+    const isSupported = ['en', 'fr', 'es', 'it', 'de', 'ja'].includes(preferredLanguage);
+    language = isSupported ? preferredLanguage : 'en';
     document.getElementById(language).classList.add('flagFocus');
 }
 
@@ -404,6 +404,7 @@ document.querySelectorAll(".flag").forEach((flag) => flag.addEventListener("clic
     else
         updateDataList();
     translatePage();
+    localStorage.setItem('language', language);
 }));
 
 //gamemode buttons
