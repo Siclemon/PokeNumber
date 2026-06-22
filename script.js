@@ -47,10 +47,10 @@ async function start() {
     maximumInput.value = maximumId;
     setDarkLightMode();
     getBrowserLanguage();
-    translatePage();
     updatePokemonDisplay();
-    initializeBuffer();
+    initializeBuffer(); //anti repetition buffer
     newRound();
+    translatePage();
 }
 
 function enter() {
@@ -211,12 +211,12 @@ function newRound() {
 
         case 'imageToName':
             answer = pokemonName;
+            givenInfo.textContent = '';
             input.type = 'text';
             isShiny = Math.random() < 0.02;
             pokemonSprite.onload = () => {if (isShiny && shinyShakeActive) shinyShake()};
             pokemonSprite.src = isShiny ? pokemon.shiny : pokemon.sprite;
             break;
-
 
         default:
             givenInfo.textContent = 'Invalid game mode'
@@ -301,11 +301,17 @@ function translatePage() {
 
     switch (gameMode) {
         case 'nameToNumber':
-            input.setAttribute('placeholder', localisation['inputPlaceholderNumber'][language])
+            input.setAttribute('placeholder', localisation['inputPlaceholderNumber'][language]);
             break;
 
         case 'numberToName':
-            input.setAttribute('placeholder', localisation['inputPlaceholderName'][language])
+            input.setAttribute('placeholder', localisation['inputPlaceholderName'][language]);
+            answer = pokedex.get(pokemonId).name[language];
+            break;
+
+        case 'imageToName':
+            input.setAttribute('placeholder', localisation['inputPlaceholderName'][language]);
+            answer = pokedex.get(pokemonId).name[language];
             break;
     }
 }
@@ -372,7 +378,7 @@ restartBtn.addEventListener("click", () => {
     newRound();
 });
 
-//drakmode toggle
+//darkmode toggle
 darkModeBtn.addEventListener("click", () => {
     darkMode = !darkMode;
     setDarkLightMode();

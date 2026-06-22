@@ -10,7 +10,7 @@
 - ✅ Add safety for boundaries (no min > max)
 - ✅ Add a small(?) buffer to avoid repetition
 - ✅ Add a small animation for shinies
-- 🛠️ Finish Image to name game mode
+- ✅ Finish Image to name game mode
 - ❌ Clean up the code
 
 ---

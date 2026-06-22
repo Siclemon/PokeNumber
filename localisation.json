@@ -32,12 +32,12 @@
         "ja": "番号 → 名前"
     },
     "imageToName": {
-        "en": "Image → name",
+        "en": "Picture → name",
         "fr": "Image → nom",
-        "es": "Número → nombre",
-        "de": "Nummer → Name",
-        "it": "Numero → nome",
-        "ja": "番号 → 名前"
+        "es": "Imagen → nombre",
+        "de": "Bild → Name",
+        "it": "Immagine → nome",
+        "ja": "写真 → 名前"
     },
     "minimumId": {
         "en": "Minimum ID:",
