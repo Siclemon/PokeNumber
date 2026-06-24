@@ -32,7 +32,7 @@ let localisation = {};
 let buffer = []; //find a better name (or not?)
 let bufferSize = 0;
 let optionChange = false;
-let shinyShakeActive = (localStorage.getItem('shinyShakeActive') === 'true') ?? true;
+let shinyShakeActive = (localStorage.getItem('shinyShakeActive') !== 'true');
 let isShiny = false;
 let caughtShinies = 0;
 let missedShinies = 0;
@@ -45,6 +45,7 @@ async function start() {
     shinyShakeToggle.checked = !shinyShakeActive;
     minimumInput.value = minimumId;
     maximumInput.value = maximumId;
+    document.getElementById(gameMode).checked = true;
     setDarkLightMode();
     getLanguage();
     updatePokemonDisplay();
@@ -222,6 +223,7 @@ function newRound() {
             givenInfo.textContent = 'Invalid game mode'
             break;
     }
+    if (isShiny) console.log('✨');
 
     input.focus();
 }
@@ -256,7 +258,7 @@ async function loadLocalisation() {
 
 //gets the browser preferred language
 function getLanguage() {
-    const preferredLanguage = localStorage.getItem('language') ?? navigator.language;
+    const preferredLanguage = localStorage.getItem('language') ?? navigator.language.substring(0,2).toLowerCase();
     const isSupported = ['en', 'fr', 'es', 'it', 'de', 'ja'].includes(preferredLanguage);
     language = isSupported ? preferredLanguage : 'en';
     document.getElementById(language).classList.add('flagFocus');
