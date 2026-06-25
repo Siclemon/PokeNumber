@@ -17,14 +17,16 @@ const caughtShiniesTextPlural = document.getElementById('caughtShiniesTextPlural
 const missedShiniesCounter = document.getElementById('missedShiniesNumber');
 const missedShiniesTextSingular = document.getElementById('missedShiniesTextSingular');
 const missedShiniesTextPlural = document.getElementById('missedShiniesTextPlural');
+const menu = document.querySelector('.menu');
+let menuVisible = false;
 let pokemonId = 0;
 let pokemonName = '';
 let answer = '';
-let minimumId = localStorage.getItem('mininumId') ?? 1;
+let minimumId = localStorage.getItem('minimumId') ?? 1;
 let maximumId = localStorage.getItem('maximumId') ?? 1025;
 let score = 0;
 let guesses = 0;
-let darkMode = localStorage.getItem('darkMode') ?? false;
+let darkMode = (localStorage.getItem('darkMode') === 'true');
 let language = 'en';
 let pokedex = new Map();
 let gameMode = localStorage.getItem('gameMode') ?? 'nameToNumber';
@@ -43,8 +45,7 @@ async function start() {
     await loadPokedex();
     await loadLocalisation();
     shinyShakeToggle.checked = !shinyShakeActive;
-    minimumInput.value = minimumId;
-    maximumInput.value = maximumId;
+    getBoundaries();
     document.getElementById(gameMode).checked = true;
     setDarkLightMode();
     getLanguage();
@@ -80,7 +81,7 @@ function incorrect() {
 function updateCaughtShinies() {
     caughtShinies++;
     caughtShiniesCounter.textContent = caughtShinies;
-    if (caughtShinies === 1) 
+    if (caughtShinies === 1)
         caughtShiniesTextSingular.style.display = 'block';
     if (caughtShinies > 1) {
         caughtShiniesTextSingular.style.display = 'none';
@@ -91,7 +92,7 @@ function updateCaughtShinies() {
 function updateMissedShinies() {
     missedShinies++;
     missedShiniesCounter.textContent = missedShinies;
-    if (missedShinies === 1) 
+    if (missedShinies === 1)
         missedShiniesTextSingular.style.display = 'block';
     if (missedShinies > 1) {
         missedShiniesTextSingular.style.display = 'none';
@@ -200,7 +201,7 @@ function newRound() {
             givenInfo.textContent = pokemonName;
             input.type = 'number';
             isShiny = Math.random() < 0.02;
-            pokemonSprite.onload = () => {if (isShiny && shinyShakeActive) shinyShake()};
+            pokemonSprite.onload = () => { if (isShiny && shinyShakeActive) shinyShake() };
             pokemonSprite.src = isShiny ? pokemon.shiny : pokemon.sprite;
             break;
 
@@ -215,7 +216,7 @@ function newRound() {
             givenInfo.textContent = '';
             input.type = 'text';
             isShiny = Math.random() < 0.02;
-            pokemonSprite.onload = () => {if (isShiny && shinyShakeActive) shinyShake()};
+            pokemonSprite.onload = () => { if (isShiny && shinyShakeActive) shinyShake() };
             pokemonSprite.src = isShiny ? pokemon.shiny : pokemon.sprite;
             break;
 
@@ -231,7 +232,7 @@ function newRound() {
 function shinyShake() {
     pokemonSprite.animate(
         [
-            { transform: "translate(0rem, 0rem)", offset:0.2},
+            { transform: "translate(0rem, 0rem)", offset: 0.2 },
             { transform: "translate(1rem, 0.5rem)" },
             { transform: "translate(-0.5rem, -1.5rem)" },
             { transform: "translate(0.5rem, 1.2rem)" },
@@ -246,7 +247,6 @@ function shinyShake() {
 async function loadPokedex() {
     const response = await fetch('./pokedex.json', { cache: "force-cache" });
     const pokemonList = await response.json();
-
     pokemonList.forEach(poke => pokedex.set(poke.id, poke));
 };
 
@@ -264,7 +264,7 @@ function getLanguage() {
     document.getElementById(language).classList.add('flagFocus');
 }
 
-//updtaes the dropdown list with all localized pokémon names
+//updates the dropdown list with all localized pokémon names
 function updateDataList() {
     dataList.innerHTML = '';
     if (gameMode === 'numberToName' || gameMode === 'imageToName') {
@@ -350,7 +350,7 @@ function applyOptionsChanges() {
     optionChange = false;
 }
 
-//upadtes the text of the 'restart' button
+//updates the text of the 'restart' button
 function updateRestartButtonDisplay() {
     let key;
     if (optionChange) {
@@ -388,12 +388,23 @@ darkModeBtn.addEventListener("click", () => {
 
 //show menu on mobile
 menuBtn.addEventListener("click", () => {
-    document.querySelector('.menu').style.right = '0%';
+    menu.style.right = '0%';
+    menuVisible = true;
 });
 
 //hide menu on mobile
+//by clicking X
 menuCloseBtn.addEventListener("click", () => {
-    document.querySelector('.menu').style.right = '-60%';
+    menu.style.right = '-60%';
+    menuVisible = false;
+});
+//by clicking outside
+document.addEventListener('click', event => {
+    const isClickInside = menu.contains(event.target) || menuBtn.contains(event.target);
+    const isMobile = window.matchMedia('(max-width: 800px)').matches;
+    if (!isClickInside && isMobile && menuVisible) {
+        menu.style.right = '-60%';
+    }
 });
 
 //change language
@@ -421,12 +432,10 @@ document.querySelectorAll('input[name=mode]').forEach((btn) => btn.addEventListe
 document.querySelectorAll('.boundaryInput').forEach((element) => element.addEventListener("input", () => {
     optionChange = true;
     updateRestartButtonDisplay();
-}))
+}));
 
 //toggles the shiny shaking animation
 shinyShakeToggle.addEventListener('change', () => {
-    console.log(shinyShakeActive)
     shinyShakeActive = !shinyShakeToggle.checked;
     localStorage.setItem('shinyShakeActive', shinyShakeActive);
-    console.log(shinyShakeActive)
-})
+});
