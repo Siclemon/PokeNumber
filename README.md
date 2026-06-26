@@ -12,7 +12,7 @@
 - ✅ Add a small animation for shinies
 - ✅ Finish Image to name game mode
 - ❌ Clean up the code
-- ❌ Make the menu closeable by tapping outside of it on mobile
+- ✅ Make the menu closeable by tapping outside of it on mobile
 
 ---
 
