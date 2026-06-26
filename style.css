@@ -46,11 +46,11 @@ body {
     margin-bottom: max(-10px, -3dvw);
 }
 
-.noImage > img {
+.noImage>img {
     display: none;
 }
 
-.noImage > p {
+.noImage>p {
     margin-top: 15dvh;
     font-size: 1.75rem;
 }
@@ -145,9 +145,9 @@ body {
 
 #restart:active {
     background-color: hsl(34, 36%, 71%);
-  -webkit-box-shadow: inset 0px 0px 5px var(--bg-menu);
-     -moz-box-shadow: inset 0px 0px 5px var(--bg-menu);
-          box-shadow: inset 0px 0px 5px var(--bg-menu);
+    -webkit-box-shadow: inset 0px 0px 5px var(--bg-menu);
+    -moz-box-shadow: inset 0px 0px 5px var(--bg-menu);
+    box-shadow: inset 0px 0px 5px var(--bg-menu);
     transition: 0.1s ease-out;
 }
 
@@ -337,4 +337,25 @@ input::-webkit-inner-spin-button {
     .flags {
         width: 45dvw;
     }
+}
+
+.overlayMenus {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    padding: 0;
+    padding-top: 0px;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: transparent;
+    pointer-events: auto;
+}
+
+#howtoPlayDialog {
+    background-color: var(--bg);
 }

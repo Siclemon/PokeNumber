@@ -50,7 +50,7 @@ async function start() {
     setDarkLightMode();
     getLanguage();
     updatePokemonDisplay();
-    initializeBuffer(); //anti repetition buffer
+    initializeBuffer();
     newRound();
     translatePage();
 }
