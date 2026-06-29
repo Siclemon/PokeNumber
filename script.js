@@ -18,6 +18,8 @@ const missedShiniesCounter = document.getElementById('missedShiniesNumber');
 const missedShiniesTextSingular = document.getElementById('missedShiniesTextSingular');
 const missedShiniesTextPlural = document.getElementById('missedShiniesTextPlural');
 const menu = document.querySelector('.menu');
+const guideDialog = document.getElementById('howToPlayDialog');
+const guideButton = document.getElementById('guideButton');
 let menuVisible = false;
 let pokemonId = 0;
 let pokemonName = '';
@@ -439,3 +441,7 @@ shinyShakeToggle.addEventListener('change', () => {
     shinyShakeActive = !shinyShakeToggle.checked;
     localStorage.setItem('shinyShakeActive', shinyShakeActive);
 });
+
+guideButton.addEventListener('click', () => {
+    guideDialog.showModal();
+})
