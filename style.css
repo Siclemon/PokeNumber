@@ -17,6 +17,7 @@ body {
     overflow-x: hidden;
     margin: 0;
     padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 1.1rem;
 }
 
@@ -36,7 +37,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 1.25rem;
 }
 
@@ -58,7 +58,6 @@ body {
 #input {
     border-radius: 50px;
     padding: 8px;
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 1rem;
     background-color: var(--input-color);
     border: 0;
@@ -69,14 +68,12 @@ body {
 }
 
 #score {
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 1.5rem;
     margin-bottom: min(30px, 2dvw);
     transition: 0.2s;
 }
 
 #solution {
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 1.5rem;
     opacity: 0;
 }
@@ -89,7 +86,6 @@ body {
     top: 0;
     right: -20%;
     transition: 0.5s;
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 1.1rem;
     color: var(--menu-text);
     display: flex;
@@ -340,7 +336,7 @@ input::-webkit-inner-spin-button {
 }
 
 #howToPlayDialog {
-    background-color: var(--bg);
+    background-color: hsl(34, 78%, 81%);
 }
 
 #howToPlayDialog::backdrop {
@@ -355,4 +351,53 @@ input::-webkit-inner-spin-button {
     width: 40px;
     height: 40px;
     text-align: center;
+}
+
+.guideCloseButton {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.guideDialogContent {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+
+    h3 {
+        font-size: 2rem;
+    }
+
+    .guideExample {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: var(--bg-menu) 3px solid;
+        border-radius: 40px;
+        background-color: var(--bg);
+        padding: 0;
+        margin: 0;
+
+        img {
+            height: 15rem;
+        }
+
+        .guideExampleAnswer {
+            background-color: var(--input-color);
+            width: 8rem;
+            height: 1.7rem;
+            border-radius: 1.7rem;
+            text-align: center;
+            line-height: 1.7rem;
+            padding: 0;
+            margin: 0 0 .5rem;
+        }
+
+        .guideModes {
+            display: flex;
+            flex-direction: row;
+            background-color: red;
+        }
+    }
 }
