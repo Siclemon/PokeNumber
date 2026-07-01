@@ -20,6 +20,7 @@ const missedShiniesTextPlural = document.getElementById('missedShiniesTextPlural
 const menu = document.querySelector('.menu');
 const guideDialog = document.getElementById('howToPlayDialog');
 const guideButton = document.getElementById('guideButton');
+const guideCloseButton = document.getElementById('guideCloseButton');
 let menuVisible = false;
 let pokemonId = 0;
 let pokemonName = '';
@@ -444,4 +445,8 @@ shinyShakeToggle.addEventListener('change', () => {
 
 guideButton.addEventListener('click', () => {
     guideDialog.showModal();
+})
+
+guideCloseButton.addEventListener('click', () => {
+    guideDialog.close();
 })

@@ -357,12 +357,21 @@ input::-webkit-inner-spin-button {
     position: absolute;
     right: 10px;
     top: 10px;
+    padding: 0;
+    margin: 0;
+    height: 2.6rem;
+    width: 2.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
 }
 
 .guideDialogContent {
     display: flex;
     flex-direction: column;
-    padding: 0;
+    padding: 15px;
     margin: 0;
 
     h3 {
@@ -376,7 +385,7 @@ input::-webkit-inner-spin-button {
         border: var(--bg-menu) 3px solid;
         border-radius: 40px;
         background-color: var(--bg);
-        padding: 0;
+        padding: 5px 0 10px;
         margin: 0;
 
         img {
@@ -393,11 +402,16 @@ input::-webkit-inner-spin-button {
             padding: 0;
             margin: 0 0 .5rem;
         }
-
-        .guideModes {
-            display: flex;
-            flex-direction: row;
-            background-color: red;
-        }
     }
+
+    .guideModes {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 5px;
+    }
+}
+
+dialog {
+    border-radius: 20px;
 }
