@@ -1,15 +1,18 @@
 :root {
     --bg: hsl(34, 78%, 91%);
     --bg-menu: hsl(0, 3%, 25%);
+    --main-text: hsl(0, 3%, 14%);
     --menu-text: var(--bg);
     --input-color: hsl(0, 0%, 87%);
     --mobile-menu-icon: var(--bg-menu);
+    --dialog-bg: hsl(34, 78%, 81%);
 }
 
 .darkMode {
     --bg: hsl(0, 3%, 14%);
     --main-text: hsl(34, 78%, 91%);
     --mobile-menu-icon: hsl(34, 78%, 91%);
+    --dialog-bg: hsl(0, 3%, 15%);
 }
 
 body {
@@ -336,27 +339,41 @@ input::-webkit-inner-spin-button {
 }
 
 #howToPlayDialog {
-    background-color: hsl(34, 78%, 81%);
+    background-color: var(--dialog-bg);
+    padding: 0;
+    margin: auto;
+    border: none;
+    border-radius: 10px;
+    filter: drop-shadow(0 0 0.75rem black);
 }
 
 #howToPlayDialog::backdrop {
-    background-color: hsl(0, 20%, 25%, 0.4)
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(1px);
 }
 
 #guideButton {
     position: fixed;
-    top: 10px;
-    left: 10px;
-    background-color: aquamarine;
-    width: 40px;
-    height: 40px;
+    top: 15px;
+    left: 15px;
+    width: 36px;
+    height: 36px;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    border: 5px solid;
+    border-color: var(--mobile-menu-icon);
+    color: var(--mobile-menu-icon);
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 .guideCloseButton {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 15px;
+    top: 15px;
     padding: 0;
     margin: 0;
     height: 2.6rem;
@@ -365,31 +382,43 @@ input::-webkit-inner-spin-button {
     align-items: center;
     justify-content: center;
     background-color: transparent;
+    border-radius: 15px;
     border: none;
+    transition: 0.3s ease-in-out;
+}
+
+.guideCloseButton:hover {
+    transform: rotate(90deg);
 }
 
 .guideDialogContent {
     display: flex;
     flex-direction: column;
-    padding: 15px;
+    padding: 15px 30px;
     margin: 0;
+    color: var(--main-text);
 
     h3 {
         font-size: 2rem;
+    }
+
+    #guideDialogExampleText {
+        font-weight: bold;
+        margin: 0.5rem auto 0.3rem;
     }
 
     .guideExample {
         display: flex;
         flex-direction: column;
         align-items: center;
-        border: var(--bg-menu) 3px solid;
+        border: var(--bg-menu) 2px solid;
         border-radius: 40px;
         background-color: var(--bg);
         padding: 5px 0 10px;
         margin: 0;
 
         img {
-            height: 15rem;
+            height: 14rem;
         }
 
         .guideExampleAnswer {
@@ -401,6 +430,7 @@ input::-webkit-inner-spin-button {
             line-height: 1.7rem;
             padding: 0;
             margin: 0 0 .5rem;
+            color: black;
         }
     }
 
@@ -409,9 +439,29 @@ input::-webkit-inner-spin-button {
         flex-direction: row;
         align-items: center;
         margin-top: 5px;
+        gap: 4px;
+
+        path {
+            stroke: var(--main-text);
+        }
     }
 }
 
 dialog {
     border-radius: 20px;
+}
+
+#howToPlayDialog[open] {
+    animation: dialogFade 0.15s ease-out;
+}
+
+@keyframes dialogFade {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
