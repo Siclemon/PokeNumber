@@ -450,3 +450,8 @@ guideButton.addEventListener('click', () => {
 guideCloseButton.addEventListener('click', () => {
     guideDialog.close();
 })
+
+document.addEventListener('click', event => {
+    if (!event.target.contains(guideDialog)) return;
+    guideDialog.close();
+});
