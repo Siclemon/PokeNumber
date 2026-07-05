@@ -18,6 +18,9 @@ const missedShiniesCounter = document.getElementById('missedShiniesNumber');
 const missedShiniesTextSingular = document.getElementById('missedShiniesTextSingular');
 const missedShiniesTextPlural = document.getElementById('missedShiniesTextPlural');
 const menu = document.querySelector('.menu');
+const guideDialog = document.getElementById('howToPlayDialog');
+const guideButton = document.getElementById('guideButton');
+const guideCloseButton = document.getElementById('guideCloseButton');
 let menuVisible = false;
 let pokemonId = 0;
 let pokemonName = '';
@@ -38,6 +41,7 @@ let shinyShakeActive = (localStorage.getItem('shinyShakeActive') !== 'true');
 let isShiny = false;
 let caughtShinies = 0;
 let missedShinies = 0;
+let firstVisit = localStorage.getItem('firstVisit') !== 'false';
 
 start();
 
@@ -50,9 +54,13 @@ async function start() {
     setDarkLightMode();
     getLanguage();
     updatePokemonDisplay();
-    initializeBuffer(); //anti repetition buffer
+    initializeBuffer();
     newRound();
     translatePage();
+    if (firstVisit) {
+        guideDialog.showModal();
+        localStorage.setItem('firstVisit', false);
+    }
 }
 
 function enter() {
@@ -438,4 +446,17 @@ document.querySelectorAll('.boundaryInput').forEach((element) => element.addEven
 shinyShakeToggle.addEventListener('change', () => {
     shinyShakeActive = !shinyShakeToggle.checked;
     localStorage.setItem('shinyShakeActive', shinyShakeActive);
+});
+
+guideButton.addEventListener('click', () => {
+    guideDialog.showModal();
+})
+
+guideCloseButton.addEventListener('click', () => {
+    guideDialog.close();
+})
+
+document.addEventListener('click', event => {
+    if (!event.target.contains(guideDialog)) return;
+    guideDialog.close();
 });
