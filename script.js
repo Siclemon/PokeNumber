@@ -41,6 +41,7 @@ let shinyShakeActive = (localStorage.getItem('shinyShakeActive') !== 'true');
 let isShiny = false;
 let caughtShinies = 0;
 let missedShinies = 0;
+let firstVisit = localStorage.getItem('firstVisit') !== 'false';
 
 start();
 
@@ -56,6 +57,10 @@ async function start() {
     initializeBuffer();
     newRound();
     translatePage();
+    if (firstVisit) {
+        guideDialog.showModal();
+        localStorage.setItem('firstVisit', false);
+    }
 }
 
 function enter() {
