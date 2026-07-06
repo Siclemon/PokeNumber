@@ -79,37 +79,36 @@
         </div>
         <div class="menuContent">
             <div class="darkModeDiv">
-                <button class="darkModeButton" id="darkModeButton">🌙</button>
+                <button class="darkModeButton" id="darkModeButton" tabindex="-1">🌙</button>
             </div>
             <div class="boundaries">
                 <div class="minDiv">
                     <label for="min" id="labelMin" data-loc="minimumId">Minimum</label>
-                    <input type="number" name="min" id="min" min="1" max="1025" placeholder="1" class="boundaryInput">
+                    <input type="number" name="min" id="min" min="1" max="1025" placeholder="1" class="boundaryInput" tabindex="-1">
                 </div>
                 <div class="maxDiv">
                     <label for="max" id="labelMax" data-loc="maximumId">Maximum</label>
-                    <input type="number" name="max" id="max" min="1" max="1025" placeholder="1025"
-                        class="boundaryInput">
+                    <input type="number" name="max" id="max" min="1" max="1025" placeholder="1025" class="boundaryInput" tabindex="-1">
                 </div>
             </div>
             <div class="gameModeDiv">
                 <div>
-                    <input type="radio" name="mode" id="nameToNumber">
+                    <input type="radio" name="mode" id="nameToNumber" tabindex="-1">
                     <label for="nameToNumber" data-loc="nameToNumber">Abc → #</label>
                 </div>
                 <div>
-                    <input type="radio" name="mode" id="numberToName">
+                    <input type="radio" name="mode" id="numberToName" tabindex="-1">
                     <label for="numberToName" data-loc="numberToName"># → Abc</label>
                 </div>
                 <div>
-                    <input type="radio" name="mode" id="imageToName">
+                    <input type="radio" name="mode" id="imageToName" tabindex="-1">
                     <label for="imageToName" data-loc="imageToName"># → Abc</label>
                 </div>
             </div>
-            <button id="restart">Recommencer</button>
+            <button id="restart" tabindex="-1">Recommencer</button>
             <div>
                 <div>
-                    <input type="checkbox" name="shinyShake" id="shinyShake">
+                    <input type="checkbox" name="shinyShake" id="shinyShake" tabindex="-1">
                     <label for="shinyShake" data-loc="shakingToggle">Désactiver les tremblements</label>
                 </div>
             </div>
