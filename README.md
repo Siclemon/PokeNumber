@@ -15,8 +15,8 @@ contact@pokenumber.com
 - ✅ Finish Image to name game mode
 - ❌ Clean up the code
 - ✅ Make the menu closeable by tapping outside of it on mobile
-- ❌ Prevent tab selection on menu elements
-- ❌ Load the input datalist on page initialization
+- ✅ Prevent tab selection on menu elements
+- ✅ Load the input datalist on page initialization
 - ❌ Add a pokédex (list of all pokémon with numbers, to learn)
 
 ---
