@@ -142,7 +142,7 @@ function randomInt(min, max) {
 
 function getBoundaries() {
     minimumId = Math.max(parseInt(minimumInput.value) || 1, 1);
-    maximumId = Math.min(parseInt(maximumInput.value) || 1025, 1025);
+    maximumId = clamp(minimumId, parseInt(maximumInput.value) || 1025, 1025)
     minimumId = minimumId <= maximumId ? minimumId : 1;
     minimumInput.value = minimumId;
     maximumInput.value = maximumId;
