@@ -57,6 +57,7 @@ async function start() {
     initializeBuffer();
     newRound();
     translatePage();
+    updateDataList();
     if (firstVisit) {
         guideDialog.showModal();
         localStorage.setItem('firstVisit', false);
