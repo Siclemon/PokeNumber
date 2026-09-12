@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css" />
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <meta name="description" content="A Pokédex quiz.">
+    <script src="script.js" defer></script>
 </head>
 
 <body>
@@ -84,11 +86,13 @@
             <div class="boundaries">
                 <div class="minDiv">
                     <label for="min" id="labelMin" data-loc="minimumId">Minimum</label>
-                    <input type="number" name="min" id="min" min="1" max="1025" placeholder="1" class="boundaryInput" tabindex="-1">
+                    <input type="number" name="min" id="min" min="1" max="1025" placeholder="1" class="boundaryInput"
+                        tabindex="-1">
                 </div>
                 <div class="maxDiv">
                     <label for="max" id="labelMax" data-loc="maximumId">Maximum</label>
-                    <input type="number" name="max" id="max" min="1" max="1025" placeholder="1025" class="boundaryInput" tabindex="-1">
+                    <input type="number" name="max" id="max" min="1" max="1025" placeholder="1025" class="boundaryInput"
+                        tabindex="-1">
                 </div>
             </div>
             <div class="gameModeDiv">
@@ -136,10 +140,11 @@
                 <span class="fi fi-it flag" id="it"></span>
                 <span class="fi fi-jp flag" id="ja"></span>
             </div>
+            <address>
+                <a href="mailto:contact@pokenumber.com">contact@pokenumber.com</a>
+            </address>
         </div>
     </div>
 </body>
-
-<script src="script.js" defer></script>
 
 </html>

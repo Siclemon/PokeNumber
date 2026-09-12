@@ -267,7 +267,7 @@ async function loadLocalisation() {
 
 //gets the browser preferred language
 function getLanguage() {
-    const preferredLanguage = localStorage.getItem('language') ?? navigator.language.substring(0,2).toLowerCase();
+    const preferredLanguage = localStorage.getItem('language') ?? navigator.language.substring(0, 2).toLowerCase();
     const isSupported = ['en', 'fr', 'es', 'it', 'de', 'ja'].includes(preferredLanguage);
     language = isSupported ? preferredLanguage : 'en';
     document.getElementById(language).classList.add('flagFocus');
@@ -309,7 +309,10 @@ function updatePokemonDisplay() {
 function translatePage() {
     document.querySelectorAll('[data-loc]').forEach(translateElement);
     updateRestartButtonDisplay();
+    updateInputPlaceholderText();
+}
 
+function updateInputPlaceholderText() {
     switch (gameMode) {
         case 'nameToNumber':
             input.setAttribute('placeholder', localisation['inputPlaceholderNumber'][language]);
@@ -356,6 +359,7 @@ function applyOptionsChanges() {
     getBoundaries();
     updateDataList();
     updatePokemonDisplay();
+    updateInputPlaceholderText();
     optionChange = false;
 }
 
