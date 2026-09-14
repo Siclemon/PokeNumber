@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PokéNumber</title>
+    <title>PokéNumber - Guess the Pokédex number</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css" />
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
-    <meta name="description" content="A Pokédex quiz.">
+    <meta name="description"
+        content="A free Pokémon quiz. Guess the Pokédex number of the Pokémon on screen! Or guess the Pokémon from its number.">
     <script src="script.js" defer></script>
 </head>
 
 <body>
-    <div id="guideButton">?</div>
+    <button type="button" id="guideButton">?</button>
     <dialog id="howToPlayDialog" class="overlayMenu">
         <button class="guideCloseButton" id="guideCloseButton" type="button" aria-label="Close" tabindex="-1">
             <svg width="90px" height="40px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
@@ -26,7 +26,7 @@
             <p data-loc="guideExplaination">Devinez le numéro du pokédex du pokémon affiché.</p>
             <p id="guideDialogExampleText" data-loc="guideDialogExampleText">EXEMPLE</p>
             <div class="guideExample">
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
+                <img src="/sprites/default/25.webp"
                     alt="">
                 <p class="guideExampleName">Pikachu</p>
                 <p class="guideExampleAnswer">25</p>
@@ -42,7 +42,7 @@
             </div>
         </div>
     </dialog>
-    <div class="all">
+    <main>
         <p id="score" class="text">0/0</p>
         <div class="poke">
             <img id="img" src="" alt="Pokémon sprite" fetchpriority="high">
@@ -55,16 +55,16 @@
         <div>
             <p id="solution" class="text"></p>
         </div>
-    </div>
-    <div class="menuIcon">
+    </main>
+    <button type="button" class="menuIcon">
         <svg width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
             <path class="cog" stroke="#000000" stroke-linejoin="round" stroke-width="2"
                 d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
             <path class="cog" stroke="#000000" stroke-linejoin="round" stroke-width="2"
                 d="M10.47 4.32c.602-1.306 2.458-1.306 3.06 0l.218.473a1.684 1.684 0 0 0 2.112.875l.49-.18c1.348-.498 2.66.814 2.162 2.163l-.18.489a1.684 1.684 0 0 0 .875 2.112l.474.218c1.305.602 1.305 2.458 0 3.06l-.474.218a1.684 1.684 0 0 0-.875 2.112l.18.49c.498 1.348-.814 2.66-2.163 2.162l-.489-.18a1.684 1.684 0 0 0-2.112.875l-.218.473c-.602 1.306-2.458 1.306-3.06 0l-.218-.473a1.684 1.684 0 0 0-2.112-.875l-.49.18c-1.348.498-2.66-.814-2.163-2.163l.181-.489a1.684 1.684 0 0 0-.875-2.112l-.474-.218c-1.305-.602-1.305-2.458 0-3.06l.474-.218a1.684 1.684 0 0 0 .875-2.112l-.18-.49c-.498-1.348.814-2.66 2.163-2.163l.489.181a1.684 1.684 0 0 0 2.112-.875l.218-.474Z" />
         </svg>
-    </div>
-    <div class="menu">
+    </button>
+    <aside class="menu">
         <div class="panelMenuIcon">
             <svg width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
                 <path class="cog2" stroke="#000000" stroke-linejoin="round" stroke-width="2"
@@ -132,19 +132,31 @@
                         data-loc="missedShiniesTextPlural"> shinys loupés</p>
                 </div>
             </div>
-            <div class="flags">
-                <span class="fi fi-fr flag" id="fr"></span>
-                <span class="fi fi-gb flag" id="en"></span>
-                <span class="fi fi-de flag" id="de"></span>
-                <span class="fi fi-es flag" id="es"></span>
-                <span class="fi fi-it flag" id="it"></span>
-                <span class="fi fi-jp flag" id="ja"></span>
-            </div>
+            <ul class="flags">
+                <li><button type="button"><img src="https://flagcdn.com/w160/fr.png"
+                            srcset="https://flagcdn.com/w320/fr.png 2x" width="160" height="107" alt="French" class="flag" id="fr"></button>
+                </li>
+                <li><button type="button"><img src="https://flagcdn.com/w160/gb.png"
+                            srcset="https://flagcdn.com/w320/gb.png 2x" width="160" height="107" alt="English" class="flag" id="en"></button>
+                </li>
+                <li><button type="button"><img src="https://flagcdn.com/w160/de.png"
+                            srcset="https://flagcdn.com/w320/de.png 2x" width="160" height="107" alt="German" class="flag" id="de"></button>
+                </li>
+                <li><button type="button"><img src="https://flagcdn.com/w160/es.png"
+                            srcset="https://flagcdn.com/w320/es.png 2x" width="160" height="107" alt="Spain" class="flag" id="es"></button>
+                </li>
+                <li><button type="button"><img src="https://flagcdn.com/w160/it.png"
+                            srcset="https://flagcdn.com/w320/it.png 2x" width="160" height="107" alt="Italian" class="flag" id="it"></button>
+                </li>
+                <li><button type="button"><img src="https://flagcdn.com/w160/jp.png"
+                            srcset="https://flagcdn.com/w320/jp.png 2x" width="160" height="107"
+                            alt="Japanese" class="flag" id="jp"></button></li>
+            </ul>
             <address>
                 <a href="mailto:contact@pokenumber.com">contact@pokenumber.com</a>
             </address>
         </div>
-    </div>
+    </aside>
 </body>
 
 </html>

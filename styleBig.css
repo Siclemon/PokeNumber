@@ -1,0 +1,537 @@
+:root {
+    --bg: hsl(34, 78%, 91%);
+    --bg-menu: hsl(0, 3%, 25%);
+    --main-text: hsl(0, 3%, 14%);
+    --menu-text: hsl(34, 78%, 94%);
+    --input-color: hsl(0, 0%, 87%);
+    --mobile-menu-icon: var(--bg-menu);
+    --dialog-bg: hsl(34, 78%, 81%);
+}
+
+.darkMode {
+    --bg: hsl(0, 3%, 14%);
+    --main-text: var(--menu-text);
+    --mobile-menu-icon: hsl(34, 78%, 91%);
+    --dialog-bg: hsl(0, 3%, 15%);
+}
+
+body {
+    background-color: var(--bg);
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1rem;
+    position: relative;
+    height: 100dvh;
+}
+
+html {
+    overflow: hidden;
+    height: 100dvh;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: min(100px, 4dvw);
+    transition: 0.2s;
+}
+
+.text {
+    color: var(--main-text);
+}
+
+.poke {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.25rem;
+}
+
+#img {
+    width: min(300px, 40dvw);
+    height: min(300px, 40dvw);
+    margin-bottom: max(-10px, -3dvw);
+}
+
+.noImage>img {
+    display: none;
+}
+
+.noImage>p {
+    margin-top: 15dvh;
+    font-size: 1.75rem;
+}
+
+#input {
+    border-radius: 50px;
+    padding: 8px;
+    font-size: 1rem;
+    background-color: var(--input-color);
+    border: 0;
+}
+
+#input:focus {
+    outline: none;
+}
+
+#score {
+    font-size: 1.5rem;
+    margin-bottom: min(30px, 2dvw);
+    transition: 0.2s;
+}
+
+#solution {
+    font-size: 1.5rem;
+    opacity: 0;
+}
+
+.menu {
+    position: absolute;
+    width: 25%;
+    height: 100dvh;
+    background-color: var(--bg-menu);
+    top: 0;
+    right: -20%;
+    transition: 0.5s;
+    font-size: 1.1rem;
+    color: var(--menu-text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menuContent {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 10%;
+    gap: 5%;
+}
+
+.menu:hover {
+    right: 0%;
+}
+
+.boundaries {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.minDiv,
+.maxDiv {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.boundaryInput {
+    text-align: center;
+    background-color: var(--input-color);
+}
+
+#restart {
+    border-radius: 50px;
+    border: 0;
+    padding: 4px 9px;
+    font-size: 1.1rem;
+    background-color: var(--menu-text);
+    transition: 0.1s ease-out;
+}
+
+#restart:hover {
+    background-color: hsl(34, 36%, 77%);
+    transition: 0.1s ease-out;
+}
+
+#restart:active {
+    background-color: hsl(34, 36%, 71%);
+    -webkit-box-shadow: inset 0px 0px 5px var(--bg-menu);
+    -moz-box-shadow: inset 0px 0px 5px var(--bg-menu);
+    box-shadow: inset 0px 0px 5px var(--bg-menu);
+    transition: 0.1s ease-out;
+}
+
+.shinyStats {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.caughtShinies,
+.missedShinies {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.caughtShinies p,
+.missedShinies p {
+    margin: 0;
+}
+
+.shinyText {
+    display: none;
+}
+
+input[type='number'] {
+    -moz-appearance: textfield;
+    border-radius: 15px;
+    border: 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.darkModeButton {
+    background-color: var(--menu-text);
+    border-radius: 50px;
+    height: 40px;
+    width: 40px;
+    font-size: 1.8rem;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
+    border-width: 0;
+}
+
+.darkModeButton:hover {
+    background-color: hsl(34, 36%, 77%);
+}
+
+.menuIcon {
+    display: none;
+    height: 55px;
+    width: 55px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background: none;
+    border: none;
+}
+
+.panelMenuIcon {
+    height: 70px;
+    width: 70px;
+    position: absolute;
+    left: 1%;
+    top: 50%;
+    transform: translate(0, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu:hover>.panelMenuIcon {
+    animation: rotation 7s linear infinite;
+    transition: 1s;
+}
+
+@keyframes rotation {
+    from {
+        transform: translate(0, -50%) rotate(0);
+    }
+
+    to {
+        transform: translate(0, -50%) rotate(360deg);
+    }
+}
+
+.cog2 {
+    stroke: var(--menu-text);
+}
+
+.cog {
+    stroke: var(--mobile-menu-icon);
+}
+
+.menuClose {
+    display: none;
+    height: 45px;
+    width: 45px;
+    position: relative;
+    align-self: flex-start;
+    left: 5px;
+    top: 5px;
+    background-color: hsl(0, 0%, 15%);
+    border-radius: 7px;
+}
+
+.x {
+    stroke: var(--menu-text);
+    border-radius: 8px;
+}
+
+.flags {
+    list-style: none;
+    display: none;
+    justify-content: space-between;
+    gap: min(0.2dvw, 20px);
+    margin-top: auto;
+    margin-bottom: -20px;
+    padding: 0;
+    /* width: 50vw; */
+    /* scale: 0.3; */
+
+    button {
+        background: none;
+        border: none;
+        /* height: 20px; */
+        /* height: fit-content;
+        width: fit-content; */
+
+        .flag {
+            height: 34px;
+            width: 51px;
+            /* scale: 0.3; */
+            /* height: 20px;
+            width: 50px; */
+            /* scale: 150%; */
+            /* display: none; */
+            border-radius: 1px;
+            transition: 0.5s;
+        }
+
+        .flagFocus {
+            box-shadow: 0px 0px 8px 1px var(--menu-text);
+        }
+    }
+}
+
+.menu:hover>.menuContent>.flags {
+    display: flex;
+
+    .flag {
+        display: block;
+    }
+}
+
+address {
+    margin-bottom: 20px;
+
+    a {
+        color: var(--menu-text);
+        text-decoration: none;
+        font-size: 1rem;
+        opacity: 0.8;
+    }
+
+    a:hover {
+        opacity: 1;
+        text-decoration: underline;
+    }
+}
+
+#howToPlayDialog {
+    background-color: var(--dialog-bg);
+    padding: 0;
+    margin: auto;
+    border: none;
+    border-radius: 10px;
+    filter: drop-shadow(0 0 0.75rem black);
+    width: min(520px, 90dvw);
+}
+
+#howToPlayDialog::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(1px);
+}
+
+#guideButton {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    width: 36px;
+    height: 36px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    border: 5px solid;
+    background: none;
+    border-color: var(--mobile-menu-icon);
+    color: var(--mobile-menu-icon);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.guideCloseButton {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    padding: 0;
+    margin: 0;
+    height: 2.6rem;
+    width: 2.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border-radius: 15px;
+    border: none;
+    transition: 0.3s ease-in-out;
+}
+
+.guideCloseButton:hover {
+    transform: rotate(90deg);
+}
+
+.guideDialogContent {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 30px;
+    margin: 0;
+    color: var(--main-text);
+
+    h3 {
+        font-size: 2rem;
+    }
+
+    #guideDialogExampleText {
+        font-weight: bold;
+        margin: 0.5rem auto 0.3rem;
+    }
+
+    .guideExample {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: var(--bg-menu) 2px solid;
+        border-radius: 40px;
+        background-color: var(--bg);
+        padding: 5px 0 10px;
+        margin: 0;
+
+        img {
+            height: 14rem;
+        }
+
+        .guideExampleAnswer {
+            background-color: var(--input-color);
+            width: 8rem;
+            height: 1.7rem;
+            border-radius: 1.7rem;
+            text-align: center;
+            line-height: 1.7rem;
+            padding: 0;
+            margin: 0 0 .5rem;
+            color: black;
+        }
+    }
+
+    .guideModes {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 5px;
+        gap: 4px;
+
+        path {
+            stroke: var(--main-text);
+        }
+    }
+}
+
+dialog {
+    border-radius: 20px;
+}
+
+#howToPlayDialog[open] {
+    animation: dialogFade 0.15s ease-out;
+}
+
+@keyframes dialogFade {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .menuContent {
+        opacity: 0;
+    }
+
+    .menu:hover>.menuContent {
+        transition: 0.5s;
+        opacity: 1;
+    }
+
+    .flags {
+        width: 23dvw;
+    }
+
+    .flag {
+        height: 28px;
+        width: 42px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    main {
+        margin-top: 1dvw;
+    }
+
+    #score {
+        font-size: 1.3rem;
+    }
+
+    .menuContent {
+        opacity: 1;
+    }
+
+    .menu {
+        width: 60%;
+        right: -60%;
+    }
+
+    .menuIcon {
+        display: flex;
+        align-items: center;
+    }
+
+    .menuClose {
+        display: flex;
+        align-items: center;
+    }
+
+    .panelMenuIcon {
+        display: none;
+    }
+
+    .flags {
+        width: 45dvw;
+        display: flex;
+        gap: 4px;
+        
+        .flag {
+            height: 16px;
+            width: 24px;
+        }
+    }
+
+
+    #guideButton {
+        top: 12px;
+        left: 12px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .flags {
+        gap: 3px;
+
+    }
+}
