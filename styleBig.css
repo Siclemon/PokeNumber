@@ -90,7 +90,7 @@ main {
 
 .menu {
     position: absolute;
-    width: 25%;
+    width: 25vw;
     height: 100dvh;
     background-color: var(--bg-menu);
     top: 0;
@@ -155,6 +155,14 @@ main {
     -moz-box-shadow: inset 0px 0px 5px var(--bg-menu);
     box-shadow: inset 0px 0px 5px var(--bg-menu);
     transition: 0.1s ease-out;
+}
+
+.shakingOption {
+    display: flex;
+
+    label {
+        text-align: center;
+    }
 }
 
 .shinyStats {
@@ -260,6 +268,7 @@ input::-webkit-inner-spin-button {
     left: 5px;
     top: 5px;
     background-color: hsl(0, 0%, 15%);
+    border: none;
     border-radius: 7px;
 }
 
@@ -268,43 +277,48 @@ input::-webkit-inner-spin-button {
     border-radius: 8px;
 }
 
-.flags {
-    list-style: none;
-    display: none;
-    justify-content: space-between;
-    gap: min(0.2dvw, 20px);
-    margin-top: auto;
-    margin-bottom: -20px;
-    padding: 0;
-    /* width: 50vw; */
-    /* scale: 0.3; */
+.menu footer {
+    position: relative;
+    bottom: 0;
+    height: fit-content;
 
-    button {
-        background: none;
-        border: none;
-        /* height: 20px; */
-        /* height: fit-content;
+    .flags {
+        list-style: none;
+        display: none;
+        justify-content: space-between;
+        gap: min(0.2dvw, 20px);
+        margin-top: auto;
+        padding: 0;
+        /* width: 50vw; */
+        /* scale: 0.3; */
+
+        button {
+            background: none;
+            border: none;
+            /* height: 20px; */
+            /* height: fit-content;
         width: fit-content; */
 
-        .flag {
-            height: 34px;
-            width: 51px;
-            /* scale: 0.3; */
-            /* height: 20px;
+            .flag {
+                height: 1.6vw;
+                width: 2.4vw;
+                /* scale: 0.3; */
+                /* height: 20px;
             width: 50px; */
-            /* scale: 150%; */
-            /* display: none; */
-            border-radius: 1px;
-            transition: 0.5s;
-        }
+                /* scale: 150%; */
+                /* display: none; */
+                border-radius: 1px;
+                transition: 0.5s;
+            }
 
-        .flagFocus {
-            box-shadow: 0px 0px 8px 1px var(--menu-text);
+            .flagFocus {
+                box-shadow: 0px 0px 8px 1px var(--menu-text);
+            }
         }
     }
 }
 
-.menu:hover>.menuContent>.flags {
+.menu:hover>footer>.flags {
     display: flex;
 
     .flag {
@@ -314,6 +328,7 @@ input::-webkit-inner-spin-button {
 
 address {
     margin-bottom: 20px;
+    text-align: center;
 
     a {
         color: var(--menu-text);
@@ -447,6 +462,10 @@ dialog {
     animation: dialogFade 0.15s ease-out;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
 @keyframes dialogFade {
     from {
         opacity: 0;
@@ -469,14 +488,15 @@ dialog {
         opacity: 1;
     }
 
-    .flags {
+    .menu footer .flags {
         width: 23dvw;
+
+        button .flag {
+            height: 28px;
+            width: 42px;
+        }
     }
 
-    .flag {
-        height: 28px;
-        width: 42px;
-    }
 }
 
 @media screen and (max-width: 800px) {
@@ -490,6 +510,10 @@ dialog {
 
     .menuContent {
         opacity: 1;
+
+        .shakingOption {
+            flex-direction: column;
+        }
     }
 
     .menu {
@@ -511,17 +535,17 @@ dialog {
         display: none;
     }
 
-    .flags {
-        width: 45dvw;
+    .menu footer .flags {
+        width: 60dvw;
+        justify-content: space-evenly;
         display: flex;
-        gap: 4px;
-        
-        .flag {
+        gap: 3px;
+
+        button .flag {
             height: 16px;
             width: 24px;
         }
     }
-
 
     #guideButton {
         top: 12px;
@@ -530,8 +554,7 @@ dialog {
 }
 
 @media screen and (max-width: 400px) {
-    .flags {
-        gap: 3px;
-
+    .menu footer .flags {
+        gap: 2px;
     }
 }
