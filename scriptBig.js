@@ -42,6 +42,9 @@ let isShiny = false;
 let caughtShinies = 0;
 let missedShinies = 0;
 let firstVisit = localStorage.getItem('firstVisit') !== 'false';
+let queue = [];
+const queueSize = 5;
+const loadedSprites = new Map();
 
 start();
 
@@ -55,7 +58,7 @@ async function start() {
     setDarkLightMode();
     getLanguage();
     updatePokemonDisplay();
-    initializeBuffer();
+    resetQueueAndBuffer();
     newRound();
     translatePage();
     updateDataList();
@@ -172,38 +175,64 @@ function clamp(min, val, max) {
     return Math.min(max, Math.max(val, min));
 }
 
-//initializes the buffer by filling it with IDs
-function initializeBuffer() {
+//resets the queue and the buffer and fills them with IDs
+function resetQueueAndBuffer() {
     setBufferSize();
     buffer = [];
-    for (let i = 0; i < bufferSize; i++) {
-        buffer.push(randomInt(minimumId, maximumId));
+    queue = [];
+    fillQueue();
+}
+
+function addToBuffer(id) {
+    buffer.unshift(id);
+    if (buffer.length > bufferSize) buffer.pop();
+}
+
+function fillQueue() {
+    while (queue.length < clamp(1, bufferSize, queueSize)) {
+        const newId = getNewId();
+        queue.push(newId);
+        addToBuffer(newId);
+    }
+    preloadSprites();
+}
+
+function preloadSprites() {
+    for (const id of queue) {
+        if (loadedSprites.has(id)) continue;
+
+        const poke = pokedex.get(id);
+        const defaultSprite = new Image();
+        const shinySprite = new Image();
+        defaultSprite.src = poke.sprite;
+        shinySprite.src = poke.shiny;
+        loadedSprites.set(id, [defaultSprite, shinySprite]);
     }
 }
 
-//adds the current id to the buffer and removes the oldest one
-function updateBuffer() {
-    buffer.unshift(pokemonId);
-    buffer.pop();
+function getNextId() {
+    const ret = queue.shift();
+    fillQueue();
+    return ret;
 }
 
 //gets a new id, different from the ones in the buffer
 function getNewId() {
-    while (true) {
-        const newId = randomInt(minimumId, maximumId);
-        if (!buffer.includes(newId)) {
-            return newId;
-        }
-    }
+    const range = maximumId - minimumId + 1;
+    if (range <= 1) return randomInt(minimumId, maximumId);
+    let id;
+    do {
+        id = randomInt(minimumId, maximumId);
+    } while (buffer.includes(id));
+    return id;
 }
 
 function newRound() {
     input.value = '';
 
-    pokemonId = getNewId();
+    pokemonId = getNextId();
     const pokemon = pokedex.get(pokemonId);
     pokemonName = pokemon.name[language];
-    updateBuffer();
 
     switch (gameMode) {
         case 'nameToNumber':
@@ -391,7 +420,7 @@ restartBtn.addEventListener("click", () => {
         applyOptionsChanges();
     updateRestartButtonDisplay();
     resetScore();
-    initializeBuffer();
+    resetQueueAndBuffer();
     newRound();
 });
 
