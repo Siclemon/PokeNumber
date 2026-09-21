@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PokéNumber - Guess the Pokédex number</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styleBig.css">
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <meta name="description"
         content="A free Pokémon quiz. Guess the Pokédex number of the Pokémon on screen! Or guess the Pokémon from its number.">
-    <script src="script.js" defer></script>
+    <script src="scriptBig.js" defer></script>
 </head>
 
 <body>
@@ -26,7 +26,7 @@
             <p data-loc="guideExplaination">Devinez le numéro du pokédex du pokémon affiché.</p>
             <p id="guideDialogExampleText" data-loc="guideDialogExampleText">EXEMPLE</p>
             <div class="guideExample">
-                <img src="/sprites/default/25.webp" alt="">
+                <img src="/sprites/default/25.webp" alt="Pikachu">
                 <p class="guideExampleName">Pikachu</p>
                 <p class="guideExampleAnswer">25</p>
             </div>
@@ -103,7 +103,7 @@
                 </div>
                 <div>
                     <input type="radio" name="mode" id="imageToName" tabindex="-1">
-                    <label for="imageToName" data-loc="imageToName"># → Abc</label>
+                    <label for="imageToName" data-loc="imageToName">Img → Abc</label>
                 </div>
             </div>
             <button id="restart" tabindex="-1">Recommencer</button>
